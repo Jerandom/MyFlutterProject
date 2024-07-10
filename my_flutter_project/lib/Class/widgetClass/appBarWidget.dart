@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget{
-  const AppBarWidget({super.key});
+  const AppBarWidget({super.key, required this.title});
 
-  String get title => "Flutter Demo";
+  final String title;
 
   @override
   State<AppBarWidget> createState() => _AppBarWidgetState();

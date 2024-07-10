@@ -2,37 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:my_flutter_project/Class/widgetClass/appBarWidget.dart';
 import 'package:my_flutter_project/Class/widgetClass/drawerWidget.dart';
 
-import 'menuPage.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   int _counter = 0;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
-  }
-
-  AppBar myAppBar(BuildContext context){
-    return AppBar(
-      title: Text(widget.title,
-          style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold
-          )
-      ),
-      elevation: 0.0,
-      centerTitle: true,
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      //leading: appBarIcon(context),
-    );
   }
 
   Widget appBarIcon(BuildContext context) {
@@ -58,21 +43,34 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       onTap: () {
-        Navigator.push(context, SlidePageRoute(widget: MenuPage()),
-        );
+
       },
     );
   }
 
   Widget myBody() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Text('You have pushed the button this many times:'),
-          Text('$_counter', style: Theme.of(context).textTheme.headlineMedium),
-        ],
-      ),
+    return Stack(
+      children: <Widget>[
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('You have pushed the button this many times:'),
+              Text('$_counter', style: Theme.of(context).textTheme.headlineMedium),
+            ],
+          ),
+        ),
+        Positioned(
+          bottom: 30.0,
+          left: 30.0,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+            child: const Text('Logout'),
+          ),
+        ),
+      ],
     );
   }
 
@@ -87,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(),
+      appBar: const AppBarWidget(title: "Home Page",),
       drawer: const DrawerWidget(),
       body: myBody(),
       floatingActionButton: myButton(),
