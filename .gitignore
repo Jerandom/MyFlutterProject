@@ -1,18 +1,18 @@
 # Flutter/Dart/Pub related files
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
-build/
-.ios/
-.android/
-.windows/
-.web/
-.linux/
-.macos/
-.idea/
+/my_flutter_project/dart_tool/
+/my_flutter_project/flutter-plugins
+/my_flutter_project/flutter-plugins-dependencies
+/my_flutter_project/packages
+/my_flutter_project/pub-cache/
+/my_flutter_project/pub/
+/my_flutter_project/build/
+/my_flutter_project/ios/
+/my_flutter_project/android/
+/my_flutter_project/windows/
+/my_flutter_project/web/
+/my_flutter_project/linux/
+/my_flutter_project/macos/
+/my_flutter_project/idea/
 
 # Gradle files
 .gradle/
@@ -80,6 +80,7 @@ macos/Flutter/GeneratedPluginRegistrant.swift
 *.mocks.dart
 
 # Other
+*.h
 *.cpp
 *.o
 *.so
@@ -88,11 +89,4 @@ macos/Flutter/GeneratedPluginRegistrant.swift
 *.dat
 *.tmp
 *.temp
-
-# Other build folders
-/android
-/ios
-/linux
-/macos
-/web
-/windows
+*.metadata
