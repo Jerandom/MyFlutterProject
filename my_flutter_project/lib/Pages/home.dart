@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_project/Class/widgetClass/appBarWidget.dart';
-import 'package:my_flutter_project/Class/widgetClass/drawerWidget.dart';
+import '../Class/widgetClass/appBarWidget.dart';
+import '../Class/widgetClass/drawerWidget.dart';
 
 
 class MyHomePage extends StatefulWidget {

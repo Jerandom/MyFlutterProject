@@ -7,8 +7,10 @@ class TextBoxWidget extends StatefulWidget {
     this.hintText = '',
     this.obscureText = false,
     this.height = 100,
+    this.controller,
   });
 
+  final TextEditingController? controller;
   final String headerText;
   final String hintText;
   final bool obscureText;
@@ -19,6 +21,22 @@ class TextBoxWidget extends StatefulWidget {
 }
 
 class _TextBoxWidgetState extends State<TextBoxWidget> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = widget.controller ?? TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -29,6 +47,7 @@ class _TextBoxWidgetState extends State<TextBoxWidget> {
           Text(widget.headerText),
           const SizedBox(height: 8), // Space between text and text field
           TextField(
+            controller: _controller,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               hintText: widget.hintText,

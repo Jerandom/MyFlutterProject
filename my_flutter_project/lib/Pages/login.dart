@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:my_flutter_project/Class/widgetClass/appBarWidget.dart';
-import 'package:my_flutter_project/Class/widgetClass/textBoxWidget.dart';
-import 'package:my_flutter_project/Class/widgetClass/slidePageWidget.dart';
-import 'package:my_flutter_project/Pages/home.dart';
+import '../Class/widgetClass/appBarWidget.dart';
+import '../Class/widgetClass/textBoxWidget.dart';
+import '../Class/widgetClass/slidePageWidget.dart';
 
 import 'createAccount.dart';
 
@@ -44,43 +43,54 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
   }
 
+  Widget loginBody(){
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 50.0, right: 50.0, bottom: 50),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset("assets/icons/ic_launcher.png", height: 100, width: 100),
+              ],
+            ),
+            const SizedBox(height: 80),
+            const TextBoxWidget(
+              headerText: "Username",
+              hintText: "Example@gmail.com",
+              height: 100,
+            ),
+            const TextBoxWidget(
+              headerText: "Password",
+              obscureText: true,
+              height: 100,
+            ),
+            FractionallySizedBox(
+              widthFactor: 0.5,
+              child: clickableButton("Login", () {
+                Navigator.pushReplacementNamed(context,  "/home");
+              }),
+            ),
+            const SizedBox(height: 16),
+            clickableText("Create Account", () {
+              Navigator.push(context, SlidePageRoute(widget: const MyCreateAccountPage()));
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
         title: "Login Page",
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 0.0, left: 300.0, right: 300.0, bottom: 0.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const TextBoxWidget(
-                headerText: "Username",
-                hintText: "Example@gmail.com",
-                height: 100,
-              ),
-              const TextBoxWidget(
-                headerText: "Password",
-                obscureText: true,
-                height: 100,
-              ),
-              FractionallySizedBox(
-                widthFactor: 0.2,
-                child: clickableButton("Login", () {
-                  Navigator.pushReplacementNamed(context,  "/home");
-                }),
-              ),
-              const SizedBox(height: 16),
-              clickableText("Create Account", () {
-                Navigator.push(context, SlidePageRoute(widget: const MyCreateAccountPage()));
-              }),
-            ],
-          ),
-        ),
-      ),
+      body: loginBody(),
     );
   }
 }
