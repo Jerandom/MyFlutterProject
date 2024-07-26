@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../Class/widgetClass/appBarWidget.dart';
 import '../Class/widgetClass/textBoxWidget.dart';
 import '../Class/widgetClass/slidePageWidget.dart';
+
+import '../Class/managerClass/connectivityService.dart';
 
 import 'createAccount.dart';
 
@@ -14,6 +17,49 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
+  final ConnectivityService _connectivityService = ConnectivityService();
+  late final ConnectivityResult _connectivityType;
+
+  @override
+  void initState() {
+    super.initState();
+    _connectivityService.startListening(_updateConnectionStatus);
+  }
+
+  @override
+  void dispose() {
+    _connectivityService.stopListening();
+    super.dispose();
+  }
+
+  void _updateConnectionStatus(ConnectivityResult result) {
+    setState(() {
+      switch (result) {
+        case ConnectivityResult.mobile:
+          _connectivityType = ConnectivityResult.mobile;
+          break;
+        case ConnectivityResult.wifi:
+          _connectivityType = ConnectivityResult.wifi;
+          break;
+        case ConnectivityResult.ethernet:
+          _connectivityType = ConnectivityResult.ethernet;
+          break;
+        case ConnectivityResult.bluetooth:
+          _connectivityType = ConnectivityResult.bluetooth;
+          break;
+        case ConnectivityResult.vpn:
+          _connectivityType = ConnectivityResult.vpn;
+          break;
+        case ConnectivityResult.other:
+          _connectivityType = ConnectivityResult.other;
+          break;
+        case ConnectivityResult.none:
+          break;
+      }
+    });
+  }
+
+
   GestureDetector clickableText(String title, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
@@ -71,7 +117,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
             FractionallySizedBox(
               widthFactor: 0.5,
               child: clickableButton("Login", () {
-                Navigator.pushReplacementNamed(context,  "/home");
+                Navigator.pushReplacementNamed(context,  "/imageList");
               }),
             ),
             const SizedBox(height: 16),
