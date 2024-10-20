@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'Pages/login.dart';
+import 'Pages/Login/login.dart';
 import 'Pages/ImageList/imageList.dart';
-import 'Pages/testFile.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()),

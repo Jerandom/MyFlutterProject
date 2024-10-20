@@ -11,6 +11,7 @@ class TextBoxWidget extends StatefulWidget {
     super.key,
     required this.headerText,
     this.hintText = '',
+    this.bTextDisplay = true,
     this.obscureText = false,
     this.height = 100,
     this.inputMode = InputMode.text,
@@ -21,6 +22,7 @@ class TextBoxWidget extends StatefulWidget {
   final TextEditingController? controller;
   final String headerText;
   final String hintText;
+  final bool bTextDisplay;
   final bool obscureText;
   final double height;
   final InputMode inputMode;
@@ -84,8 +86,10 @@ class _TextBoxWidgetState extends State<TextBoxWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.headerText),
-          const SizedBox(height: 8),
+          if(widget.bTextDisplay) ...[
+            Text(widget.headerText),
+            const SizedBox(height: 8),
+          ],
           Flexible(
             child: TextField(
               controller: _controller,
@@ -98,6 +102,7 @@ class _TextBoxWidgetState extends State<TextBoxWidget> {
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 hintText: widget.hintText,
+                hintStyle: TextStyle(color: Colors.grey[500]),
                 errorText: errorText,
               ),
               obscureText: widget.obscureText,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../Class/widgetClass/appBarWidget.dart';
-import '../Class/widgetClass/textBoxWidget.dart';
+import '../../Class/widgetClass/GenericWidget/appBarWidget.dart';
+import '../../Class/widgetClass/GenericWidget/textBoxWidget.dart';
+
+
 
 class MyCreateAccountPage extends StatefulWidget {
   const MyCreateAccountPage({super.key});

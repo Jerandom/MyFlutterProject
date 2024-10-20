@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../Class/ImageList/ProviderClass/imageProvider.dart';
-import '../../Class/widgetClass/appBarWidget.dart';
+import '../../Class/widgetClass/GenericWidget/appBarWidget.dart';
 
 class MyImageListPage extends ConsumerStatefulWidget {
   const MyImageListPage({super.key});
