@@ -1,59 +1,49 @@
- import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dio/dio.dart';
 
-import '../ManagerClass/ImageManager.dart';
-
-class ImageItem{
-  final List<String> imageID;
-  final List<String> imageUrl;
-  final List<String> imageAuthor;
-
-  const ImageItem({
-    required this.imageID,
-    required this.imageUrl,
-    required this.imageAuthor,
-  });
-
-  factory ImageItem.fromJson(Map<String, dynamic> json) => ImageItem(
-    imageID: List<String>.from(json['id'] as List<dynamic>),
-    imageUrl: List<String>.from(json['url'] as List<dynamic>),
-    imageAuthor: List<String>.from(json['author'] as List<dynamic>),
-  );
-
-  // A convenient method to create initial state
-  factory ImageItem.initial() => const ImageItem(
-    imageID: [],
-    imageUrl: [],
-    imageAuthor: [],
-  );
-
-  // Method to create a copy of the state with some fields replaced
-  ImageItem copyWith({
-    List<String>? setImageID,
-    List<String>? setImageUrl,
-    List<String>? setImageAuthor,
-  }) => ImageItem(
-    imageID: setImageID?? imageID,
-    imageUrl: setImageUrl?? imageUrl,
-    imageAuthor: setImageAuthor?? imageAuthor,
-  );
-}
+import '../StateClass/ImageState.dart';
 
 // Define a state notifier for managing the app state
-class ImageState extends StateNotifier<ImageItem> {
-  final ImageManager imageManager;
-
-  ImageState(this.imageManager) : super(ImageItem.initial()) {
+class ImageProvider extends StateNotifier<ImageState> {
+  ImageProvider() : super(ImageState.initial()) {
     //constructor
   }
 
-  Future<void> loadMoreImages(int page, int limit) async {
-    try {
-      final newImages = await imageManager.fetchImages(page, limit);
-      decodeImageJson(newImages);
+  Future<void> loadAndDecodeImages(int page, int limit) async {
+    final dio = Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 8),
+        receiveTimeout: const Duration(seconds: 8),
+        sendTimeout: const Duration(seconds: 8),
+      ),
+    );
 
-    } catch (e) {
-      throw Exception("Failed to load images: $e");
+    try {
+      // fetch images from the API
+      final response = await dio.get(
+        'https://picsum.photos/v2/list',
+        queryParameters: {
+          'page': page,
+          'limit': limit,
+        },
+      );
+
+      if(response.statusCode == 200) {
+        // decode and process images
+        final newImages = response.data;
+        decodeImageJson(newImages);
+      } else {
+        print(response);
+        throw Exception("Invalid Response");
+      }
+    }
+
+    on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout || e.type == DioExceptionType.receiveTimeout) {
+        throw Exception("Request timed out");
+      } else {
+        throw Exception("Request failed: $e");
+      }
     }
   }
 
@@ -78,13 +68,7 @@ class ImageState extends StateNotifier<ImageItem> {
   }
 }
 
-// Define a provider for ImageManager
-final imageManagerStateProvider = Provider<ImageManager>((ref) {
-  return ImageManager();
-});
-
-// Define a provider for StateManager
-final imageStateProvider = StateNotifierProvider<ImageState, ImageItem>((ref) {
-  final imageManager = ref.watch(imageManagerStateProvider);
-  return ImageState(imageManager);
+// Define a provider for Image Provider
+final imageProvider = StateNotifierProvider<ImageProvider, ImageState>((ref) {
+  return ImageProvider();
 });

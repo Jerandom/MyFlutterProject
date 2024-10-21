@@ -53,28 +53,31 @@ class _TextBoxWidgetState extends State<TextBoxWidget> {
   }
 
   void _validateInput() {
+    bool bError = false;
+
     final String text = _controller.text.trim();
     final int? intValue = int.tryParse(text);
 
+    switch(widget.inputMode){
+      case InputMode.number:
+        if(text.isEmpty) {
+          errorText = "Please enter a valid number";
+          bError = true;
+        }
+        break;
+
+      case InputMode.text:
+        if(text.isEmpty) {
+          errorText = "Please enter a valid value";
+          bError = true;
+        }
+        break;
+    }
+
+    //update state with error status
     setState(() {
-      if (widget.inputMode == InputMode.number) {
-        if (text.isEmpty || intValue == null || intValue == 0) {
-          errorText = 'Please enter a valid number';
-
-          if (widget.hasError != null) {
-            widget.hasError!(true);
-          }
-        }
-        else {
-          errorText = null;
-
-          if (widget.hasError != null) {
-            widget.hasError!(false);
-          }
-        }
-      }
-      else {
-        errorText = null;
+      if(widget.hasError != null) {
+        widget.hasError!(bError);
       }
     });
   }
@@ -102,7 +105,6 @@ class _TextBoxWidgetState extends State<TextBoxWidget> {
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 hintText: widget.hintText,
-                hintStyle: TextStyle(color: Colors.grey[500]),
                 errorText: errorText,
               ),
               obscureText: widget.obscureText,

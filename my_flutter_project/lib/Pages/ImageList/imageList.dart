@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:my_flutter_project/Class/ImageList/ProviderClass/imageIndexProvider.dart';
 
 import '../../Class/ImageList/ProviderClass/imageProvider.dart';
 import '../../Class/widgetClass/GenericWidget/appBarWidget.dart';
@@ -13,21 +14,32 @@ class MyImageListPage extends ConsumerStatefulWidget {
 }
 
 class _MyImageListPageState extends ConsumerState<MyImageListPage> {
-  int pageIndex = 1;
-  int pageLimit = 3;
   bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
+
+    // Access the initial values from the provider
+    final imageIndexState = ref.read(imageIndexProvider);
+    final int pageIndex = imageIndexState.pageIndex;
+    final int pageLimit = imageIndexState.pageLimit;
+
     // Initial load of images
-    ref.read(imageStateProvider.notifier).loadMoreImages(pageIndex, pageLimit);
+    final imageState =  ref.read(imageProvider);
+    if(imageState.imageUrl.isEmpty){
+      ref.read(imageProvider.notifier).loadAndDecodeImages(pageIndex, pageLimit);
+      //ref.read(imageIndexProvider.notifier).setPageIndex(pageIndex + 1);
+    }
   }
 
   @override
   Widget build(BuildContext context){
     //state class here
-    final stateManager = ref.watch(imageStateProvider);
+    final imageState = ref.watch(imageProvider);
+    final imageIndexState = ref.watch(imageIndexProvider);
+    final int pageIndex = imageIndexState.pageIndex;
+    final int pageLimit = imageIndexState.pageLimit;
 
     return Scaffold(
       appBar: const AppBarWidget(title: "Scrollable List View",
@@ -37,9 +49,9 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
           if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent
               && !isLoading) {
             isLoading = true;
-            pageIndex += 1;
-            ref.read(imageStateProvider.notifier).
-            loadMoreImages(pageIndex, pageLimit).then((_) {
+            ref.read(imageIndexProvider.notifier).setPageIndex(pageIndex + 1);
+            ref.read(imageProvider.notifier).
+            loadAndDecodeImages(pageIndex, pageLimit).then((_) {
               isLoading = false;
             });
             return true;
@@ -50,11 +62,11 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
           child: ListView.separated(
             scrollDirection: Axis.vertical,
             separatorBuilder: (context, _) => const SizedBox(height: 12),
-            itemCount: stateManager.imageUrl.length,
+            itemCount: imageState.imageUrl.length,
             itemBuilder: (context, index) => buildCard(
-                stateManager.imageID[index],
-                stateManager.imageUrl[index],
-                stateManager.imageAuthor[index]),
+                imageState.imageID[index],
+                imageState.imageUrl[index],
+                imageState.imageAuthor[index]),
           ),
         ),
       ),
