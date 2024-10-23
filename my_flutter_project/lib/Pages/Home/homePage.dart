@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import '../../Class/Providers/appProvider.dart';
+
+class MyHomePage extends ConsumerStatefulWidget {
+  const MyHomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
   int _selectedIndex = 0;
 
   // List of icons and text for the grid
@@ -29,6 +32,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appState = ref.watch(appStateProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
@@ -51,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Icon(
                   gridItems[index]['icon'],
-                  size: 48.0,
+                  size: 30.0,
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(height: 8.0),

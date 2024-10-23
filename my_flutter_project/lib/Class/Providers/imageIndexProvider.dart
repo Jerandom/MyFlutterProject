@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../StateClass/ImageIndexState.dart';
+import '../States/ImageIndexState.dart';
 
 class ImageIndexProvider extends StateNotifier<ImageIndexState> {
     ImageIndexProvider() : super (ImageIndexState.initial()) {

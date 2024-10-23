@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../Class/GenericProvider/appState.dart';
-import '../../Class/widgetClass/GenericWidget/buttonWidget.dart';
-import '../../Class/widgetClass/GenericWidget/clickableTextWidget.dart';
-import '../../Class/widgetClass/GenericWidget/flipPageWidget.dart';
-import '../../Class/widgetClass/GenericWidget/textBoxWidget.dart';
-import '../../Class/widgetClass/GenericWidget/iconButtonWidget.dart';
+import '../../Class/Providers/appProvider.dart';
 
-import 'createAccount.dart';
+import '../GenericWidget/buttonWidget.dart';
+import '../GenericWidget/clickableTextWidget.dart';
+import '../GenericWidget/flipPageWidget.dart';
+import '../GenericWidget/iconButtonWidget.dart';
+import '../GenericWidget/textBoxWidget.dart';
+import 'createAccountPage.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

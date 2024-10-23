@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class GridViewWidget extends StatelessWidget {
   final List<String> imageUrls;
 
-  GridViewWidget({required this.imageUrls});
+  const GridViewWidget({super.key, required this.imageUrls});
 
   @override
   Widget build(BuildContext context) {

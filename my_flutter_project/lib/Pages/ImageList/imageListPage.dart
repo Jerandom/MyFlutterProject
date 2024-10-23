@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:my_flutter_project/Class/ImageList/ProviderClass/imageIndexProvider.dart';
+import 'package:my_flutter_project/Class/Providers/imageIndexProvider.dart';
 
-import '../../Class/ImageList/ProviderClass/imageProvider.dart';
-import '../../Class/widgetClass/GenericWidget/appBarWidget.dart';
+import '../../Class/Providers/imageProvider.dart';
+import '../GenericWidget/appBarWidget.dart';
 
 class MyImageListPage extends ConsumerStatefulWidget {
   const MyImageListPage({super.key});
