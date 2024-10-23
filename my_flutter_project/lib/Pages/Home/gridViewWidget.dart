@@ -1,51 +1,51 @@
 import 'package:flutter/material.dart';
 
 class GridViewWidget extends StatelessWidget {
-  final List<String> imageUrls;
+  final List<Map<String, dynamic>> gridItems;
 
-  const GridViewWidget({super.key, required this.imageUrls});
+  const GridViewWidget({
+    super.key,
+    required this.gridItems});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          // Background Image
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage('https://example.com/background.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-          // GridView on top of background
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GridView.builder(
-              itemCount: imageUrls.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, // Number of items per row
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 1,
-              ),
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
-                      image: NetworkImage(imageUrls[index]),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+    return GridView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemCount: gridItems.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // Number of columns
+        crossAxisSpacing: 8.0, // Space between columns
+        mainAxisSpacing: 8.0, // Space between rows
       ),
+      itemBuilder: (context, index) {
+        return InkWell(
+          onTap: () {},
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Container(
+                  color: Colors.black,
+                  child: Image.asset(
+                    gridItems[index]['image'] as String,
+                    width: 100.0,
+                    height: 100.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 8.0),
+
+              Text(
+                gridItems[index]['text'],
+                style: const TextStyle(fontSize: 16.0),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
