@@ -42,8 +42,7 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
     final int pageLimit = imageIndexState.pageLimit;
 
     return Scaffold(
-      appBar: const AppBarWidget(title: "Scrollable List View",
-      ),
+      appBar: const AppBarWidget(title: "Scrollable List View"),
       body: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo){
           if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent

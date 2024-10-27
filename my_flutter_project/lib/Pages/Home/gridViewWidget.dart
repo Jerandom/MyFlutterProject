@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 class GridViewWidget extends StatelessWidget {
   final List<Map<String, dynamic>> gridItems;
+  final Function(int) onTap;
 
   const GridViewWidget({
     super.key,
-    required this.gridItems});
+    required this.gridItems,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class GridViewWidget extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         return InkWell(
-          onTap: () {},
+          onTap: () => onTap(index),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

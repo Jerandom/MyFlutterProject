@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Class/Providers/appProvider.dart';
 
@@ -8,8 +9,6 @@ import '../GenericWidget/flipPageWidget.dart';
 import '../GenericWidget/iconButtonWidget.dart';
 import '../GenericWidget/textBoxWidget.dart';
 import 'createAccountPage.dart';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyLoginPage extends ConsumerStatefulWidget {
   const MyLoginPage({super.key});
@@ -38,7 +37,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final appState = ref.watch(appStateProvider);
+    final appState = ref.watch(appProvider);
 
     return Scaffold(
       //backgroundColor:

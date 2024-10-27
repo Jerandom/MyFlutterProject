@@ -23,21 +23,27 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0.0,
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      leading: IconButton(
+          onPressed: () {
+              // Drawer Widget
+          },
+          icon: Icon(Icons.menu),
+      ),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
-          child: GestureDetector(
+          child: InkWell(
             onTap: () {
               // Define what happens when the container is clicked
-              print("Container clicked");
+              print("Login clicked");
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.notifications, color: Colors.black), // Leading icon
+                Icon(Icons.login, color: Colors.black), // Login icon
                 const SizedBox(width: 8), // Spacing between icon and text
                 Text(
-                  "Alerts",
+                  "Login",
                   style: const TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ],

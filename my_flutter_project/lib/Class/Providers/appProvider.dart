@@ -6,19 +6,12 @@ import 'dart:io';
 import '../States/appState.dart';
 
 // Define a state notifier for managing the app state
-class AppStateManager extends StateNotifier<AppState> {
-  AppStateManager() : super(AppState.initial()) {
+class AppProvider extends StateNotifier<AppState> {
+  AppProvider() : super(AppState.initial()) {
     // Constructor
     _listenToConnectivityChanges();
     _setPlatformMode();
     _setThemeMode();
-  }
-
-  // Function to update connectivity state
-  void setConnected(List<ConnectivityResult> result) {
-    state = state.copyWith(
-      setConnectionStatus: result,
-    );
   }
 
   // Function to update theme
@@ -45,7 +38,9 @@ class AppStateManager extends StateNotifier<AppState> {
   // Function to listen for connectivity changes
   void _listenToConnectivityChanges() {
     Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result){
-      setConnected(result);
+      state = state.copyWith(
+        setConnectionStatus: result,
+      );
       print(result);
     });
   }
@@ -87,6 +82,6 @@ class AppStateManager extends StateNotifier<AppState> {
 }
 
 // Define a provider for the StateManager
-final appStateProvider = StateNotifierProvider<AppStateManager, AppState>((ref) {
-  return AppStateManager();
+final appProvider = StateNotifierProvider<AppProvider, AppState>((ref) {
+  return AppProvider();
 });
