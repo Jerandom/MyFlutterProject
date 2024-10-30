@@ -14,94 +14,6 @@ class MyHomePage extends ConsumerStatefulWidget {
 }
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
-  //function to handle basic navigation
-  void handleBasicGridNav(String route){
-    switch (route) {
-      case "Profile":
-        print("switch to $route");
-    }
-  }
-
-  //function to handle advanced navigation
-  void handleAdvancedGridNav(String route){
-    switch (route) {
-      case "Profile":
-        print("switch to $route");
-    }
-  }
-
-  //UI code here, basic grid widget
-  Widget buildBasicGrid(List<Map<String, dynamic>> gridItems) => Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            // title
-            children: [
-              const Text(
-                "Basic Features",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(width: 8),
-
-              //divider
-              Expanded(
-                child: Divider(
-                  color: Colors.grey,
-                  thickness: 1,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: GridViewWidget(
-            gridItems: gridItems,
-            onTap: (index) {
-              handleBasicGridNav(gridItems[index]['text']);
-            },
-          ),
-        ),
-      ]
-  );
-
-  //UI code here, advanced grid widget
-  Widget buildAdvancedGrid(List<Map<String, dynamic>> gridItems) => Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            // title
-            children: [
-              const Text(
-                "Advanced Features",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(width: 8),
-
-              //divider
-              Expanded(
-                child: Divider(
-                  color: Colors.grey,
-                  thickness: 1,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: GridViewWidget(
-            gridItems: gridItems,
-            onTap: (index) {
-              handleAdvancedGridNav(gridItems[index]['text']);
-            },
-          ),
-        ),
-      ]
-  );
-
   @override
   Widget build(BuildContext context) {
     final appState = ref.watch(appProvider);
@@ -113,10 +25,10 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         index: homeState.pageIndex,
         children: [
           //first route
-          buildBasicGrid(homeState.gridItems),
+          BasicFeatureWidget(gridItems: homeState.gridItems),
 
           //second route
-          buildAdvancedGrid(homeState.gridItems),
+          //buildAdvancedGrid(homeState.gridItems),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
