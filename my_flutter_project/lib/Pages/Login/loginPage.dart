@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Class/Providers/appProvider.dart';
@@ -123,7 +124,8 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                     child: ButtonWidget(
                       title: "Sign In",
                       onTap: (() {
-                        Navigator.pushNamed(context,  "/imageList");
+                        //Navigator.pushNamed(context,  "/imageList");
+                        context.go('/home');
                       }),
                     ),
                   ),

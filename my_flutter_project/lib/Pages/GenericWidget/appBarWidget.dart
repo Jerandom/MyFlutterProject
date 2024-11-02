@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_flutter_project/Pages/Login/loginPage.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     
@@ -34,8 +36,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 16.0),
           child: InkWell(
             onTap: () {
-              // Define what happens when the container is clicked
-              print("Login clicked");
+              //Navigator.push(context, MaterialPageRoute(builder: (context) => MyLoginPage()));
+              context.push('/login');
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
