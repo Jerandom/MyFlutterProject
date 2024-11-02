@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Class/Providers/appProvider.dart';
 import '../../Class/Providers/homeProvider.dart';
 import '../GenericWidget/appBarWidget.dart';
-import 'advancedFeature.dart';
-import 'basicFeatureWidget.dart';
 
 class MyHomePage extends ConsumerStatefulWidget {
   final Widget child;
@@ -25,37 +24,29 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     final appState = ref.watch(appProvider);
     final homeState = ref.watch(homeProvider);
 
+
     return Scaffold(
-      appBar: const AppBarWidget(title: "Home"),
-      body: Placeholder(),
+      appBar: AppBarWidget(title: "Home"),
+      body: widget.child,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: homeState.pageIndex,
+        onTap: (index) {
+          ref.read(homeProvider.notifier).setPageIndex(index);
+
+          switch (index) {
+            case 0:
+              context.go('/home');
+              break;
+            case 1:
+              context.go('/advancedFeature');
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+      ),
     );
   }
 }
-
-// return Scaffold(
-// appBar: const AppBarWidget(title: "Home"),
-// body: IndexedStack(
-// index: homeState.pageIndex,
-// children: [
-// //first route
-// BasicFeatureWidget(gridItems: homeState.basicGridItems),
-//
-// //second route
-// AdvancedFeatureWidget(gridItems: homeState.advancedGridItems),
-// ],
-// ),
-// bottomNavigationBar: BottomNavigationBar(
-// items: const <BottomNavigationBarItem>[
-// BottomNavigationBarItem(
-// icon: Icon(Icons.home),
-// label: "Basic Feature",
-// ),
-// BottomNavigationBarItem(
-// icon: Icon(Icons.person),
-// label: "Advanced Feature",
-// ),
-// ],
-// currentIndex: homeState.pageIndex,
-// onTap: ref.read(homeProvider.notifier).setPageIndex,
-// ),
-// );

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_flutter_project/Pages/Home/advancedFeaturePage.dart';
+import 'package:my_flutter_project/Pages/Home/basicFeaturePage.dart';
 
 import 'Pages/Home/homePage.dart';
+import 'Pages/Home/navMainPage.dart';
 import 'Pages/Login/loginPage.dart';
 
 void main() {
@@ -25,10 +28,6 @@ class MyApp extends StatelessWidget {
   final GoRouter _router = GoRouter(
     initialLocation: '/home',
     routes: [
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => MyLoginPage(),
-      ),
       ShellRoute(
         builder: (context, state, child) {
           return MyHomePage(child: child);
@@ -36,15 +35,31 @@ class MyApp extends StatelessWidget {
         routes: [
           GoRoute(
             path: '/home',
-            builder: (context, state) => Container(),
+            builder: (context, state) => BasicFeaturePage(),
             routes: [
               GoRoute(
-                path: 'Basic1',
-                builder: (context, state) => Center(child: Text("Basic 1")),
-              )
-            ]
+                path: 'details',
+                builder: (context, state) => DetailsScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'extra',
+                    builder: (context, state) => ExtraScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          GoRoute(
+            path: '/advancedFeature',
+            builder: (context, state) => AdvancedFeaturePage(),
           ),
         ],
+      ),
+
+      //login Screen outside of shell route
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => MyLoginPage(),
       ),
     ],
   );
