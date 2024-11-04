@@ -20,17 +20,21 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
   void initState() {
     super.initState();
 
-    // Access the initial values from the provider
-    final imageIndexState = ref.read(imageIndexProvider);
-    final int pageIndex = imageIndexState.pageIndex;
-    final int pageLimit = imageIndexState.pageLimit;
+    // Use addPostFrameCallback to defer provider access until the first frame is rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      //check if the list is empty
+      final imageState = ref.read(imageProvider);
+      if(imageState.imageUrl.isEmpty){
+        // Access the initial values from the provider
+        final imageIndexState = ref.read(imageIndexProvider);
+        final int pageIndex = imageIndexState.pageIndex;
+        final int pageLimit = imageIndexState.pageLimit;
 
-    // Initial load of images
-    final imageState =  ref.read(imageProvider);
-    if(imageState.imageUrl.isEmpty){
-      ref.read(imageProvider.notifier).loadAndDecodeImages(pageIndex, pageLimit);
-      //ref.read(imageIndexProvider.notifier).setPageIndex(pageIndex + 1);
-    }
+        //initial load of images
+        ref.read(imageProvider.notifier).loadAndDecodeImages(pageIndex, pageLimit);
+        ref.read(imageIndexProvider.notifier).setPageIndex(pageIndex + 1);
+      }
+    });
   }
 
   @override
