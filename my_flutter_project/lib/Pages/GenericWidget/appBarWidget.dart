@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_flutter_project/Pages/Login/loginPage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+import '../../Class/Providers/appProvider.dart';
+
+class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
-  final String name;
-  final bool isLoggedIn;
 
   const AppBarWidget({
     super.key, 
     required this.title,
-    this.name = "";
-    required this.isLoggedIn;
   });
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appProvider);
+
     return AppBar(
       title: Text(
         title,
@@ -38,14 +38,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
-          child: isLoggedIn
+          child: appState.userLoggedIn
               ? Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(Icons.person),
                     const SizedBox(width: 4),
-                    Text(
-                      name,
+                    Text("Dummy Name",
                       style: const TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ],

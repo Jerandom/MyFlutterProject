@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Class/Providers/appProvider.dart';
 import '../../Class/Providers/homeProvider.dart';
 import '../GenericWidget/appBarWidget.dart';
+import '../GenericWidget/drawerWidget.dart';
 
 class MyHomePage extends ConsumerStatefulWidget {
   final Widget child;
@@ -26,7 +27,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
     return Scaffold(
       appBar: AppBarWidget(title: "Home"),
-      drawer: DrawerWidget(bUserLoggedIn: appState.userLoggedIn),
+      drawer: DrawerWidget(),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: homeState.pageIndex,

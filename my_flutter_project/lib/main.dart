@@ -6,7 +6,10 @@ import 'package:my_flutter_project/Pages/Home/basicFeaturePage.dart';
 
 import 'Pages/Home/homePage.dart';
 import 'Pages/Home/navMainPage.dart';
+import 'Pages/ImageList/imageListPage.dart';
+import 'Pages/Login/createAccountPage.dart';
 import 'Pages/Login/loginPage.dart';
+import 'Pages/Settings/settingsPage.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()),

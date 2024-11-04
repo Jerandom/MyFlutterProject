@@ -128,14 +128,15 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                     child: ButtonWidget(
                       title: "Sign In",
                       onTap: (() {
-                        if(!validateLogin(_usernameController, _passwordController)){
+                        if(!validateLogin(_usernameController.text, _passwordController.text)){
                           return;
                         }
 
+                        //update the provider
                         ref.read(appProvider.notifier).setLoginState(true);
 
                         //Navigator.pushNamed(context,  "/imageList");
-                        context.go('/login/createAccount');
+                        context.go('/home');
                       }),
                     ),
                   ),
