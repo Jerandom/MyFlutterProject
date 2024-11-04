@@ -1,6 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+class MySettingsPage extends ConsumerStatefulWidget {
+  const MySettingsPage({super.key});
+
+  @override
+  ConsumerState<MySettingsPage> createState() => _MySettingsPageState();
+}
+
+class _MySettingsPageState extends ConsumerState<MySettingsPage> {
 
 @override
 Widget build(BuildContext context) {
@@ -41,4 +51,5 @@ Widget build(BuildContext context) {
 			),
 		),
 	);
+}
 }

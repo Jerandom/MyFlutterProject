@@ -36,8 +36,20 @@ class DrawerWidget extends StatelessWidget{
               text: "Tile",
               icon: Icons.home,
               onTap: () {
+                // close the drawer after pressing
+                Navigator.pop(context);
+              },
+            ),
 
-                
+            SizedBox(height: 8),
+
+            // Settings
+            DrawerTileWidget(
+              text: "Settings",
+              icon: Icons.settings,
+              onTap: () {
+                context.push('/settings')
+
                 // close the drawer after pressing
                 Navigator.pop(context);
               },
@@ -52,6 +64,7 @@ class DrawerWidget extends StatelessWidget{
               text: "Logout",
               icon: Icons.logout,
               onTap: () {
+                // close the drawer after pressing
                 Navigator.pop(context);
               },
             ),

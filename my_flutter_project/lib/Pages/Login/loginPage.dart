@@ -36,6 +36,10 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
     super.dispose();
   }
 
+  bool validateLogin(String username, String password){
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final appState = ref.watch(appProvider);
@@ -124,8 +128,14 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                     child: ButtonWidget(
                       title: "Sign In",
                       onTap: (() {
+                        if(!validateLogin(_usernameController, _passwordController)){
+                          return;
+                        }
+
+                        ref.read(appProvider.notifier).setLoginState(true);
+
                         //Navigator.pushNamed(context,  "/imageList");
-                        context.go('/home');
+                        context.go('/login/createAccount');
                       }),
                     ),
                   ),

@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         ],
       ),
 
-      //login Screen outside of shell route
+      //login screen outside of shell route
       GoRoute(
         path: '/login',
         builder: (context, state) => MyLoginPage(),
@@ -77,6 +77,12 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
+
+      //settings screen outside of shell route
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => MySettingsPage(),
+      )
     ],
   );
 }

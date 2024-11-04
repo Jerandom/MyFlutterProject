@@ -24,10 +24,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     final appState = ref.watch(appProvider);
     final homeState = ref.watch(homeProvider);
 
-
     return Scaffold(
       appBar: AppBarWidget(title: "Home"),
-      drawer: DrawerWidget(bUserLoggedIn: appState.setLoginState),
+      drawer: DrawerWidget(bUserLoggedIn: appState.userLoggedIn),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: homeState.pageIndex,
