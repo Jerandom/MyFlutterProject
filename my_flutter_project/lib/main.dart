@@ -33,22 +33,32 @@ class MyApp extends StatelessWidget {
           return MyHomePage(child: child);
         },
         routes: [
+          // basic feature tab
           GoRoute(
             path: '/home',
             builder: (context, state) => BasicFeaturePage(),
             routes: [
+              // test details
               GoRoute(
                 path: 'details',
                 builder: (context, state) => DetailsScreen(),
                 routes: [
+                  // test extra
                   GoRoute(
                     path: 'extra',
                     builder: (context, state) => ExtraScreen(),
                   ),
                 ],
               ),
+
+              // image list
+              GoRoute(
+                path: 'imageList',
+                builder: (context, state) => MyImageListPage(),
+              ),
             ],
           ),
+          // advacend feature tab
           GoRoute(
             path: '/advancedFeature',
             builder: (context, state) => AdvancedFeaturePage(),
@@ -60,6 +70,12 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/login',
         builder: (context, state) => MyLoginPage(),
+        routes: [
+          GoRoute(
+            path: 'createAccount',
+            builder: (context, state) => MyCreateAccountPage(),
+          ),
+        ],
       ),
     ],
   );

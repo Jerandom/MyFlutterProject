@@ -21,6 +21,13 @@ class AppProvider extends StateNotifier<AppState> {
     );
   }
 
+  // Function to update login state
+  void setLoginState(bool loginState){
+    state = state.copyWith(
+      setUserLoggedIn: loginState,
+    );
+  }
+
   // Function to update error message state
   void setErrorMsg(String errorMsg) {
     state = state.copyWith(

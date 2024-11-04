@@ -26,10 +26,11 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       leading: IconButton(
-          onPressed: () {
-              // Drawer Widget
-          },
           icon: Icon(Icons.menu),
+          onPressed: () {
+            // Opens the drawer
+            Scaffold.of(context).openDrawer();
+          },
       ),
       actions: [
         Padding(

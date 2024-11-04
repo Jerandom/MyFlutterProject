@@ -36,6 +36,9 @@ class DrawerWidget extends StatelessWidget{
               text: "Tile",
               icon: Icons.home,
               onTap: () {
+
+                
+                // close the drawer after pressing
                 Navigator.pop(context);
               },
             ),
