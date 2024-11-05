@@ -60,24 +60,43 @@ class DrawerWidget extends ConsumerWidget {
               ),
             ],
           ),
-          // Logout Tile
-          if(appState.userLoggedIn)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 25.0),
-              child: DrawerTileWidget(
-                text: "Logout",
-                icon: Icons.logout,
-                onTap: () {
-                  //update the provider
-                  ref.read(appProvider.notifier).setLoginState(false);
 
-                  // close the drawer after pressing
-                  context.pop();
-                },
-              ),
-            ),
+          appState.userLoggedIn ? _onlineWidget(ref, context) : _offlineWidget(context),
         ],
       ),
     );
   }
+
+  // UI components
+  Widget _onlineWidget(WidgetRef ref, BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: 25.0),
+        child: DrawerTileWidget(
+          text: "Logout",
+          icon: Icons.logout,
+          onTap: () {
+            // Update the provider
+            ref.read(appProvider.notifier).setLoginState(false);
+
+            // Close the drawer after pressing
+            context.pop();
+          },
+        ),
+      );
+
+  Widget _offlineWidget(BuildContext context) => InkWell(
+        onTap: () {
+          context.push('/login');
+        },
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.login, color: Colors.black), // Login icon
+            const SizedBox(width: 8),
+            Text(
+              "Login",
+              style: const TextStyle(color: Colors.black, fontSize: 16),
+            ),
+          ],
+        ),
+      );
 }

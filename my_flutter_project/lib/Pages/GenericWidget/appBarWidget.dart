@@ -8,7 +8,7 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
 
   const AppBarWidget({
-    super.key, 
+    super.key,
     required this.title,
   });
 
@@ -37,37 +37,39 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 16.0),
-          child: appState.userLoggedIn
-              ? Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.person),
-                    const SizedBox(width: 4),
-                    Text("Dummy Name",
-                      style: const TextStyle(color: Colors.black, fontSize: 16),
-                    ),
-                  ],
-                )
-              : InkWell(
-                  onTap: () {
-                    context.push('/login');
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.login, color: Colors.black), // Login icon
-                      const SizedBox(width: 8),
-                      Text(
-                        "Login",
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-        ),
+            padding: const EdgeInsets.only(right: 16.0),
+            child: appState.userLoggedIn ? _onlineWidget() : _offlineWidget()),
       ],
     );
   }
+
+  //UI components
+  Widget _onlineWidget() => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.person),
+          const SizedBox(width: 4),
+          Text(
+            "Dummy Name",
+            style: const TextStyle(color: Colors.black, fontSize: 16),
+          ),
+        ],
+      );
+
+  Widget _offlineWidget() => InkWell(
+        onTap: () {
+          context.push('/login');
+        },
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.login, color: Colors.black), // Login icon
+            const SizedBox(width: 8),
+            Text(
+              "Login",
+              style: const TextStyle(color: Colors.black, fontSize: 16),
+            ),
+          ],
+        ),
+      );
 }
