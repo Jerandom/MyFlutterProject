@@ -2,11 +2,15 @@ class ImageState{
   final List<String> imageID;
   final List<String> imageUrl;
   final List<String> imageAuthor;
+  final int pageIndex;
+  final int pageLimit;
 
   const ImageState({
     required this.imageID,
     required this.imageUrl,
     required this.imageAuthor,
+    this.pageIndex = 0;
+    this.pageLimit = 3;
   });
 
   factory ImageState.fromJson(Map<String, dynamic> json) => ImageState(
@@ -27,9 +31,13 @@ class ImageState{
     List<String>? setImageID,
     List<String>? setImageUrl,
     List<String>? setImageAuthor,
+    int? setPageIndex,
+    int? setPageLimit,
   }) => ImageState(
     imageID: setImageID?? imageID,
     imageUrl: setImageUrl?? imageUrl,
     imageAuthor: setImageAuthor?? imageAuthor,
+    pageIndex: setPageIndex?? pageIndex,
+    pageLimit: setPageLimit?? pageLimit,
   );
 }

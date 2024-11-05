@@ -66,6 +66,20 @@ class ImageProvider extends StateNotifier<ImageState> {
       setImageAuthor: [...state.imageAuthor, ...imageAuthor],
     );
   }
+
+  // method to set the page index
+  void setPageIndex(int index){
+    state = state.copyWith(
+        setPageIndex: index,
+    );
+  }
+
+  // method to set the page limit
+  void setPageLimit(int limit){
+    state = state.copyWith(
+        setPageLimit: limit,
+    );
+  }
 }
 
 // Define a provider for Image Provider

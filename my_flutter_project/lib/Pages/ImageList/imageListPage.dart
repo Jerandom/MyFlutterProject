@@ -26,13 +26,12 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
       final imageState = ref.read(imageProvider);
       if(imageState.imageUrl.isEmpty){
         // Access the initial values from the provider
-        final imageIndexState = ref.read(imageIndexProvider);
-        final int pageIndex = imageIndexState.pageIndex;
-        final int pageLimit = imageIndexState.pageLimit;
+        final int pageIndex = imageState.pageIndex;
+        final int pageLimit = imageState.pageLimit;
 
         //initial load of images
         ref.read(imageProvider.notifier).loadAndDecodeImages(pageIndex, pageLimit);
-        ref.read(imageIndexProvider.notifier).setPageIndex(pageIndex + 1);
+        ref.read(imageProvider.notifier).setPageIndex(pageIndex + 1);
       }
     });
   }
@@ -41,9 +40,8 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
   Widget build(BuildContext context){
     //state class here
     final imageState = ref.watch(imageProvider);
-    final imageIndexState = ref.watch(imageIndexProvider);
-    final int pageIndex = imageIndexState.pageIndex;
-    final int pageLimit = imageIndexState.pageLimit;
+    final int pageIndex = imageState.pageIndex;
+    final int pageLimit = imageState.pageLimit;
 
     return Scaffold(
       appBar: AppBar(
