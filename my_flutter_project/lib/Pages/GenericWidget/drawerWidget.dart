@@ -61,7 +61,7 @@ class DrawerWidget extends ConsumerWidget {
             ],
           ),
 
-          appState.userLoggedIn ? _onlineWidget(ref, context) : _offlineWidget(context),
+          appState.userLoggedIn ? _onlineWidget(ref, context) : _offlineWidget(),
         ],
       ),
     );
@@ -83,20 +83,10 @@ class DrawerWidget extends ConsumerWidget {
         ),
       );
 
-  Widget _offlineWidget(BuildContext context) => InkWell(
-        onTap: () {
-          context.push('/login');
-        },
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.login, color: Colors.black), // Login icon
-            const SizedBox(width: 8),
-            Text(
-              "Login",
-              style: const TextStyle(color: Colors.black, fontSize: 16),
-            ),
-          ],
+  Widget _offlineWidget() => InkWell(
+        padding: const EdgeInsets.only(bottom: 25.0),
+        child: Text("Please Log In",
+          style: const TextStyle(color: Colors.black, fontSize: 16),
         ),
       );
 }

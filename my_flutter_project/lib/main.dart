@@ -11,7 +11,24 @@ import 'Pages/Login/createAccountPage.dart';
 import 'Pages/Login/loginPage.dart';
 import 'Pages/Settings/settingsPage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if(kIsWeb){
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "AIzaSyBHyoquHYN3TpHa7rSlUqZyNbD4bRNoQag",
+        authDomain: "myflutterfirebase-2a9a2.firebaseapp.com",
+        projectId: "myflutterfirebase-2a9a2",
+        storageBucket: "myflutterfirebase-2a9a2.firebasestorage.app",
+        messagingSenderId: "103242293448",
+        appId: "1:103242293448:web:f9f3d9fdf9170c9d9805fd"
+      ),
+    );
+  } else {
+    await Firebase.initializeApp();
+  }
+
   runApp(ProviderScope(child: MyApp()),
   );
 }

@@ -38,13 +38,13 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         Padding(
             padding: const EdgeInsets.only(right: 16.0),
-            child: appState.userLoggedIn ? _onlineWidget() : _offlineWidget()),
+            child: appState.userLoggedIn ? _onlineWidget(ref, context) : _offlineWidget(context)),
       ],
     );
   }
 
   //UI components
-  Widget _onlineWidget() => Row(
+  Widget _onlineWidget(WidgetRef ref, BuildContext context) => Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Icons.person),
@@ -56,7 +56,7 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
         ],
       );
 
-  Widget _offlineWidget() => InkWell(
+  Widget _offlineWidget(BuildContext context) => InkWell(
         onTap: () {
           context.push('/login');
         },
