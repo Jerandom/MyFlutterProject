@@ -14,6 +14,7 @@ import 'Pages/Settings/settingsPage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  //firebase_core initialize
   if(kIsWeb){
     await Firebase.initializeApp(
       options: FirebaseOptions(
@@ -28,6 +29,11 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
+
+  //cloud_firestore
+  FirebaseFirestore.instance.settings = const Settings(
+    persistanceEnabled: true
+  );
 
   runApp(ProviderScope(child: MyApp()),
   );
