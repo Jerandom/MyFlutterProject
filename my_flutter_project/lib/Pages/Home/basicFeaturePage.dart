@@ -21,6 +21,11 @@ class _BasicFeaturePageState extends ConsumerState<BasicFeaturePage> {
         context.go('/home/details');
         print("switch to $route");
         break;
+
+      case "Basic 2":
+        context.go('/home/imageList');
+        print("switch to $route");
+        break;
     }
   }
 

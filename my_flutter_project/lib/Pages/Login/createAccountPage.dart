@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../GenericWidget/appBarWidget.dart';
 import '../GenericWidget/textBoxWidget.dart';
 
 class MyCreateAccountPage extends StatefulWidget {

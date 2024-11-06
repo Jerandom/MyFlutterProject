@@ -41,7 +41,7 @@ class DrawerWidget extends ConsumerWidget {
                 icon: Icons.home,
                 onTap: () {
                   // close the drawer after pressing
-                  context.pop();
+                  Navigator.of(context).pop();
                 },
               ),
 
@@ -55,7 +55,7 @@ class DrawerWidget extends ConsumerWidget {
                   context.push('/settings');
 
                   // close the drawer after pressing
-                  context.pop();
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -78,12 +78,12 @@ class DrawerWidget extends ConsumerWidget {
             ref.read(appProvider.notifier).setLoginState(false);
 
             // Close the drawer after pressing
-            context.pop();
+            Navigator.of(context).pop();
           },
         ),
       );
 
-  Widget _offlineWidget() => InkWell(
+  Widget _offlineWidget() => Padding(
         padding: const EdgeInsets.only(bottom: 25.0),
         child: Text("Please Log In",
           style: const TextStyle(color: Colors.black, fontSize: 16),

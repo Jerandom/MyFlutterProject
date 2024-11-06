@@ -1,19 +1,19 @@
 class FirebaseState{
-    final bool isConnected
+    final bool isConnected;
 
     const FirebaseState({
         required this.isConnected,
     });
 
     // A convenient method to create initial state
-    factory ImageIndexState.initial() => ImageIndexState(
+    factory FirebaseState.initial() => FirebaseState(
         isConnected: false,
     );
     
     // Method to create a copy of the state with some fields replaced
-    ImageIndexState copyWith({
+    FirebaseState copyWith({
         bool? setIsConnected,
-    }) => ImageIndexState(
+    }) => FirebaseState(
         isConnected: setIsConnected ?? isConnected,
     );
 }

@@ -9,8 +9,8 @@ class ImageState{
     required this.imageID,
     required this.imageUrl,
     required this.imageAuthor,
-    this.pageIndex = 0;
-    this.pageLimit = 3;
+    this.pageIndex = 0,
+    this.pageLimit = 3,
   });
 
   factory ImageState.fromJson(Map<String, dynamic> json) => ImageState(

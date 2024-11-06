@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:my_flutter_project/Class/Providers/imageIndexProvider.dart';
 
 import '../../Class/Providers/imageProvider.dart';
-import '../GenericWidget/appBarWidget.dart';
 
 class MyImageListPage extends ConsumerStatefulWidget {
   const MyImageListPage({super.key});
@@ -31,7 +29,7 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
 
         //initial load of images
         ref.read(imageProvider.notifier).loadAndDecodeImages(pageIndex, pageLimit);
-        ref.read(imageProvider.notifier).setPageIndex(pageIndex + 1);
+        ref.read(imageProvider.notifier).setPageIndex(pageIndex + 2);
       }
     });
   }
@@ -40,8 +38,6 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
   Widget build(BuildContext context){
     //state class here
     final imageState = ref.watch(imageProvider);
-    final int pageIndex = imageState.pageIndex;
-    final int pageLimit = imageState.pageLimit;
 
     return Scaffold(
       appBar: AppBar(
@@ -58,9 +54,9 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
           if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent
               && !isLoading) {
             isLoading = true;
-            ref.read(imageIndexProvider.notifier).setPageIndex(pageIndex + 1);
+            ref.read(imageProvider.notifier).setPageIndex(imageState.pageIndex + 1);
             ref.read(imageProvider.notifier).
-            loadAndDecodeImages(pageIndex, pageLimit).then((_) {
+            loadAndDecodeImages(imageState.pageIndex, imageState.pageLimit).then((_) {
               isLoading = false;
             });
             return true;

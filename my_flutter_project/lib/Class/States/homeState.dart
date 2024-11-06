@@ -1,6 +1,4 @@
 
-import 'package:flutter/material.dart';
-
 class HomeState{
   final int pageIndex;
   final List<Map<String, dynamic>> basicGridItems;

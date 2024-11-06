@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../States/firebaseState.dart';
+
 class FirebaseProvider extends StateNotifier<FirebaseState> {
     FirebaseProvider() : super (FirebaseState.initial()) {
         // constructor

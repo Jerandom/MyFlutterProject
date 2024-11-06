@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_flutter_project/Pages/Home/advancedFeaturePage.dart';
-import 'package:my_flutter_project/Pages/Home/basicFeaturePage.dart';
 
+import 'Pages/Home/advancedFeaturePage.dart';
+import 'Pages/Home/basicFeaturePage.dart';
 import 'Pages/Home/homePage.dart';
 import 'Pages/Home/navMainPage.dart';
 import 'Pages/ImageList/imageListPage.dart';
@@ -32,7 +35,7 @@ void main() async {
 
   //cloud_firestore
   FirebaseFirestore.instance.settings = const Settings(
-    persistanceEnabled: true
+    persistenceEnabled: true
   );
 
   runApp(ProviderScope(child: MyApp()),
