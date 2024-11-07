@@ -9,11 +9,11 @@ class UsersDB{
         required this.hobbies,
     });
 
-    // Factory method to create an instance of `FirebaseState` from Firestore data
-    factory FirebaseState.fromJson(Map<String, dynamic> json) => FirebaseState (
+    // Factory method to create an instance of `UsersDB` from Firestore data
+    factory UsersDB.fromJson(Map<String, dynamic> json) => UsersDB (
         name: json['name'] as String,
         age: json['age'] as int,
-        hobbies: List<dynamic>.from(json['hobbies']),
+        hobbies: List<dynamic>.from(json['hobbies'] as List<dynamic>),
     );
 
     // Convert the data back to JSON for uploading to Firestore
