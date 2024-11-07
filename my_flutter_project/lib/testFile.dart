@@ -3,8 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyTestPage extends ConsumerStatefulWidget {
-  final Widget child;
-
   const MyTestPage({super.key});
 
   @override
