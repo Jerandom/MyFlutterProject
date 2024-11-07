@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class NotesDB{
     final String task;
     final bool isDone;

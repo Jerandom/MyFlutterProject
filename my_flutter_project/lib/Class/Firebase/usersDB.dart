@@ -24,4 +24,10 @@ class UsersDB{
         'hobbies': hobbies,
       };
     }
+
+    // Override toString for easy printing
+    @override
+    String toString() {
+      return 'UsersDB(name: $name, age: $age, hobbies: $hobbies)';
+    }
 }

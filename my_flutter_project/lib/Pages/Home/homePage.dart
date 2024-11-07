@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Class/Providers/appProvider.dart';
+import '../../Class/Providers/fsUsersProvider.dart';
 import '../../Class/Providers/homeProvider.dart';
 import '../GenericWidget/appBarWidget.dart';
 import '../GenericWidget/drawerWidget.dart';
@@ -24,6 +25,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   Widget build(BuildContext context) {
     final appState = ref.watch(appProvider);
     final homeState = ref.watch(homeProvider);
+    final fsUsers = ref.watch(fsUsersProvider);
 
     return Scaffold(
       appBar: AppBarWidget(title: "Home"),

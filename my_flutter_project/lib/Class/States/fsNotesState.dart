@@ -1,3 +1,5 @@
+import '../Firebase/notesDB.dart';
+
 class FsNotesState {
   final List<NotesDB> notes;
 
@@ -11,7 +13,7 @@ class FsNotesState {
   );
 
   FsNotesState copyWith({
-    List<UsersDB>? setNotes,
+    List<NotesDB>? setNotes,
   }) => FsNotesState(
     notes: setNotes ?? notes
   );

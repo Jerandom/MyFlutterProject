@@ -1,3 +1,5 @@
+import '../Firebase/usersDB.dart';
+
 class FsUsersState {
   final List<UsersDB> users;
 
