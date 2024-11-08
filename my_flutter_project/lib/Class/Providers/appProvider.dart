@@ -11,14 +11,6 @@ class AppProvider extends StateNotifier<AppState> {
     // Constructor
     _listenToConnectivityChanges();
     _setPlatformMode();
-    _setThemeMode();
-  }
-
-  // Function to update theme
-  void setTheme(ThemeMode themeMode){
-    state = state.copyWith(
-      setThemeMode: themeMode,
-    );
   }
 
   // Function to update login state
@@ -81,10 +73,6 @@ class AppProvider extends StateNotifier<AppState> {
 
     state = state.copyWith(
         setPlatformMode: platformMode);
-  }
-
-  void _setThemeMode(){
-    print(state.themeMode);
   }
 }
 

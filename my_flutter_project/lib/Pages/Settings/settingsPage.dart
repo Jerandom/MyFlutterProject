@@ -12,13 +12,11 @@ class MySettingsPage extends ConsumerStatefulWidget {
 class _MySettingsPageState extends ConsumerState<MySettingsPage> {
 	@override
 	Widget build(BuildContext context) {
+		final themeState = ref.watch(themeProvider);
+		final isDarkMode = themeState.themeMode == ThemeMode.dark;
+
 		return Scaffold(
 			backgroundColor: Theme.of(context).colorScheme.surface,
-			appBar: AppBar(
-				elevation: 0,
-				backgroundColor: Colors.transparent,
-				foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-			),
 			body: Container(
 				decoration: BoxDecoration(
 					color: Theme.of(context).colorScheme.primary,
@@ -29,9 +27,8 @@ class _MySettingsPageState extends ConsumerState<MySettingsPage> {
 				child: Row(
 					mainAxisAlignment: MainAxisAlignment.spaceBetween,
 					children: [
-						//dark mode
 						Text(
-							"Dark Mode",
+							"Toggle Theme",
 							style: TextStyle(
 								fontWeight: FontWeight.bold,
 								color: Theme.of(context).colorScheme.inversePrimary,
@@ -40,9 +37,9 @@ class _MySettingsPageState extends ConsumerState<MySettingsPage> {
 
 						// switch toggle
 						CupertinoSwitch(
-							value: true,
+							value: isDarkMode,
 							onChanged: (bool value) {
-
+								ref.read(themeProvider.notifier).toggleTheme();
 							},
 						),
 					],
