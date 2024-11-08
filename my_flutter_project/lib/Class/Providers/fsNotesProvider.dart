@@ -13,6 +13,11 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
 
   FsNotesProvider() : super(FsNotesState.initial()) {
     // constructor
+    _initUserRef();
+  }
+
+  // initialize ref to follow a structure
+  void _initUserRef() {
     _noteRef = _fireStore.collection(NOTE_COLLECTION_REF).withConverter<NotesDB>(
           fromFirestore: (snapshots, _) => NotesDB.fromJson(snapshots.data()!),
           toFirestore: (notesDB, _) => notesDB.toJson(),

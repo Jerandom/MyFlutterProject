@@ -23,7 +23,6 @@ class MyHomePage extends ConsumerStatefulWidget {
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final appState = ref.watch(appProvider);
     final homeState = ref.watch(homeProvider);
     final fsUsers = ref.watch(fsUsersProvider);
 

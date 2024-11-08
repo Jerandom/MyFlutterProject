@@ -28,6 +28,10 @@ class UsersDB{
     // Override toString for easy printing
     @override
     String toString() {
-      return 'UsersDB(name: $name, age: $age, hobbies: $hobbies)';
+      return 'UsersDB(
+        name: $name, 
+        age: $age, 
+        hobbies: $hobbies
+      )';
     }
 }

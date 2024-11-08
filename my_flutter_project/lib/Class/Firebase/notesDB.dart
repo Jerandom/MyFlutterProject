@@ -38,4 +38,15 @@ class NotesDB{
         'updatedOn': updatedOn,
       };
     }
+
+    // Override toString for easy printing
+    @override
+    String toString() {
+      return 'NotesDB(
+        task: $task, 
+        isDone: $isDone, 
+        createdOn: $createdOn, 
+        updatedOn: $updatedOn
+      )';
+    }
 }

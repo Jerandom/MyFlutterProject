@@ -31,8 +31,7 @@ class ShopState {
   // Method to create a copy of the state with some fields replaced
   ShopState copyWith({
     List<Map<String, dynamic>>? setShopItems,
-  }) =>
-      ShopState(
+  }) => ShopState(
         shopItems: setShopItems ?? shopItems,
       );
 }

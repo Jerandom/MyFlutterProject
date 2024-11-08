@@ -17,6 +17,7 @@ class FsUsersProvider extends StateNotifier<FsUsersState> {
     _listenToRefChange();
   }
 
+  // initialize ref to follow a structure
   void _initUserRef() {
     _userRef = _fireStore.collection(USER_COLLECTION_REF).withConverter<UsersDB>(
       fromFirestore: (snapshots, _) => UsersDB.fromJson(snapshots.data()!),
@@ -24,6 +25,7 @@ class FsUsersProvider extends StateNotifier<FsUsersState> {
     );
   }
 
+  // listener to watch Firestore changes
   void _listenToRefChange() {
     _userRef.snapshots().listen((QuerySnapshot<Object?> snapshot){
       for (var doc in snapshot.docs) {

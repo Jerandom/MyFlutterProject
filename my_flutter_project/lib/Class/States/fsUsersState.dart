@@ -12,6 +12,7 @@ class FsUsersState {
     users: []
   );
 
+  // Method to create a copy of the state with some fields replaced
   FsUsersState copyWith({
     List<UsersDB>? setUsers,
   }) => FsUsersState(

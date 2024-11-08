@@ -12,6 +12,7 @@ class FsNotesState {
     notes: []
   );
 
+  // Method to create a copy of the state with some fields replaced
   FsNotesState copyWith({
     List<NotesDB>? setNotes,
   }) => FsNotesState(
