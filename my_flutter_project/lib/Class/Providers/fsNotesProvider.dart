@@ -23,6 +23,18 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
           toFirestore: (notesDB, _) => notesDB.toJson(),
         );
   }
+
+  // Method to add data to Firestore
+  Future<void> addNote(String note) async {
+    final newNote = NotesDB(
+      task: note,
+      isDone: false,
+      createdOn: Timestamp.now(),
+      updatedOn: Timestamp.now(),
+    );
+
+    await _noteRef.add(newNote.toJson());
+  }
 }
 
 // Define a provider for the FsNotesProvider

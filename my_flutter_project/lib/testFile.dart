@@ -12,9 +12,10 @@ class MyTestPage extends ConsumerStatefulWidget {
 class _MyTestPageState extends ConsumerState<MyTestPage> {
   @override
   Widget build(BuildContext context) {
+    final fsNotes = ref.watch(fsNotesProvider);
+
     return Scaffold(
-        //body: _buildUI();
-        body: Center(child: Text("database ID"))
+        body: _buildUI();
     );
   }
 
@@ -29,7 +30,32 @@ class _MyTestPageState extends ConsumerState<MyTestPage> {
 
   Widget _messageListView() {
     return SizedBox(
-      
+      height: MediaQuery.sizeOf(context).height * 0.80,
+      width: MediaQuery.sizeOf(context).width,
+      child: StreamBuilder(
+        stream: 
+        builder: (context, snapshot) {
+
+          // add the snapshot data to a list
+          List noteList = snapshot.data?.docs ?? [];
+          if(noteList.isEmpty){
+            return const Center(
+              child: Text("Add a Note"),
+            );
+          }
+
+          return ListView.Builder(
+            itemCount: 5,
+            itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: ListTile(
+                title: Text(fsNotes.task),
+              ),
+            ),
+          });
+        },
+      ),
     );
   }
 }
