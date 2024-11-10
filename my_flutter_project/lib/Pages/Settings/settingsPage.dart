@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../Class/Providers/themeProvider.dart';
+
 class MySettingsPage extends ConsumerStatefulWidget {
 	const MySettingsPage({super.key});
 
@@ -16,14 +18,18 @@ class _MySettingsPageState extends ConsumerState<MySettingsPage> {
 		final isDarkMode = themeState.themeMode == ThemeMode.dark;
 
 		return Scaffold(
-			backgroundColor: Theme.of(context).colorScheme.surface,
+			appBar: AppBar(
+				title: Text("Settings"),
+				centerTitle: true,
+				backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+			),
 			body: Container(
 				decoration: BoxDecoration(
 					color: Theme.of(context).colorScheme.primary,
 					borderRadius: BorderRadius.circular(12),
 				),
 				padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-				margin: EdgeInsets.only(left:25, right: 25, top: 10),
+				margin: EdgeInsets.only(left:25, right: 25, top: 25),
 				child: Row(
 					mainAxisAlignment: MainAxisAlignment.spaceBetween,
 					children: [

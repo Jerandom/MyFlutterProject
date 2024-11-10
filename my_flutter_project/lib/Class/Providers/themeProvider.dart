@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../States/themeState.dart';
+
 class ThemeProvider extends StateNotifier<ThemeState> {
   ThemeProvider() : super(ThemeState.initial()) {
     // constructor

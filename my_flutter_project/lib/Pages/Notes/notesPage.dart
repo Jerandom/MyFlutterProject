@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../Class/Providers/fsNotesProvider.dart';
+import '../GenericWidget/textBoxWidget.dart';
 
 class MyNotesPage extends ConsumerStatefulWidget {
 
-  const MyNotesPage({
-    super.key
-  });
+    const MyNotesPage({
+        super.key
+    });
 
-  @override
-  ConsumerState<MyNotesPage> createState() => _MyNotesPageState();
+    @override
+    ConsumerState<MyNotesPage> createState() => _MyNotesPageState();
 }
 
 class _MyNotesPageState extends ConsumerState<MyNotesPage> {
@@ -18,41 +22,9 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
         final fsNotes = ref.watch(fsNotesProvider);
 
         return Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
             floatingActionButton: FloatingActionButton(
-                onPressed: createNote,
+                onPressed: addNoteDialog,
                 child: const Icon(Icons.add),
-            ),
-            body: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                    // Heading
-                    Padding(
-                        padding: EdgeInsets.only(left: 25.0),
-                        child: Text("Notes",
-                            style: GoggleFonts.dmserifText(
-                                fontSize: 48,
-                                color: Theme.of(context).colorScheme.inversePrimary,
-                            ),
-                        ),
-                    ),
-
-                    // List of Notes
-                    Expanded(
-                        child: ListView.builder(
-                            item.Count: fsUsers.length,
-                            itemBuilder: (context, index){
-
-                                //get indeividual note
-                                final note = fsUsers[index];
-
-                                //list tile uI
-                                return NoteTile(text: note.text);
-
-                            },
-                        ),
-                    ),
-                ],
             ),
         );
     }
@@ -70,7 +42,7 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
                     ElevatedButton(
                         onPressed: () {
                             //add a new note
-                            ref.read(fsUsersProvider.notifier).addUser(_textController.text);
+                            ref.read(fsNotesProvider.notifier).addNote(_textController.text);
 
                             //clear text controller
                             _textController.clear();

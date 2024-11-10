@@ -4,7 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_flutter_project/Class/States/themeState.dart';
 
+import 'Class/Providers/appProvider.dart';
+import 'Class/Providers/themeProvider.dart';
+import 'Class/Theme/theme.dart';
 import 'Pages/Home/advancedFeaturePage.dart';
 import 'Pages/Home/basicFeaturePage.dart';
 import 'Pages/Home/homePage.dart';
@@ -49,7 +53,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appState = ref.watch(appProvider);
-    final themeMode = ref.watch(themeProvider);
+    final themeState = ref.watch(themeProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,

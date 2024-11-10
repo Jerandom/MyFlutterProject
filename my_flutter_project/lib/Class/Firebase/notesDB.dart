@@ -42,11 +42,6 @@ class NotesDB{
     // Override toString for easy printing
     @override
     String toString() {
-      return 'NotesDB(
-        task: $task, 
-        isDone: $isDone, 
-        createdOn: $createdOn, 
-        updatedOn: $updatedOn
-      )';
+      return 'NotesDB(task: $task, isDone: $isDone, createdOn: $createdOn, updatedOn: $updatedOn)';
     }
 }
