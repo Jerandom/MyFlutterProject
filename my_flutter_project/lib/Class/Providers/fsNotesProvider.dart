@@ -13,15 +13,26 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
 
   FsNotesProvider() : super(FsNotesState.initial()) {
     // constructor
-    _initUserRef();
+    _initNoteRef();
+    _listenToRefChange();
   }
 
   // initialize ref to follow a structure
-  void _initUserRef() {
+  void _initNoteRef() {
     _noteRef = _fireStore.collection(NOTE_COLLECTION_REF).withConverter<NotesDB>(
           fromFirestore: (snapshots, _) => NotesDB.fromJson(snapshots.data()!),
           toFirestore: (notesDB, _) => notesDB.toJson(),
         );
+  }
+
+  // listener to watch Firestore changes
+  void _listenToRefChange() {
+    _noteRef.snapshots().listen((QuerySnapshot<Object?> snapshot){
+      final NotesDB notes = snapshot.docs.map((doc) => doc.data()).toList();
+
+      // Update the state with the new list of notes
+      state = state.copyWith(notes: notes);
+    });
   }
 
   // Method to add data to Firestore
