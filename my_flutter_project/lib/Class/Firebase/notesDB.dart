@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotesDB{
+    final String docId;
     final String task;
     final bool isDone;
     final Timestamp createdOn;
     final Timestamp updatedOn;
 
     const NotesDB({
+        required this.docId;
         required this.task,
         required this.isDone,
         required this.createdOn,
@@ -23,6 +25,7 @@ class NotesDB{
 
     // Factory method to create an instance of `NotesDB` from Firestore data
     factory NotesDB.fromJson(Map<String, dynamic> json) => NotesDB (
+        documentId: documentId,
         task: json['task'] as String,
         isDone: json['isDone'] as bool,
         createdOn: json['createdOn'] as Timestamp,

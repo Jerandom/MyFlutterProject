@@ -38,66 +38,12 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
             itemBuilder: (context, index) {
               final note = fsNotes[index];
 
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              note.title,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              "Created on: ${note.createdOn}",
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              "Updated on: ${note.updatedOn}",
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Checkbox(
-                            value: note.isCompleted,
-                            onChanged: (bool? value) {
-                              ref.read(fsNotesProvider.notifier).toggleNoteCompletion(note.id, value ?? false);
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () {
-                              // Add your edit functionality here
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              ref.read(fsNotesProvider.notifier).deleteNote(note.id);
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return NoteTileWidget(
+                title: ,
+                createdOn: ,
+                updatedOn: ,
+                
+              ),
             },
           ),
         ),

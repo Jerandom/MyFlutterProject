@@ -9,7 +9,7 @@ class NoteTileWidget extends StatelessWidget {
 
   const NoteTileWidget({
     super.key,
-    required this.text,
+    required this.title,
     required this.createdOn,
     required this.updatedOn,
     required this.onEditPressed,

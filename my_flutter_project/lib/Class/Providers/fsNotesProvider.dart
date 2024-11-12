@@ -35,6 +35,27 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
     });
   }
 
+  void _listenToRefChange() {
+  _noteRef.snapshots().listen((QuerySnapshot<Object?> snapshot) {
+    // Map each document to an instance of NotesDB with document ID
+    final List<NotesDB> notes = snapshot.docs.map((doc) {
+      // Use the doc.id as the documentId and pass doc.data() as the JSON data
+      return NotesDB.fromJson(doc.data() as Map<String, dynamic>, doc.id);
+    }).toList();
+
+    // Update the state with the new list of notes
+    state = state.copyWith(notes: notes);
+  });
+}
+
+  // Update data given with doc Id
+  Future<void> updateNote(String docID, String newNote){
+    return _noteRef.doc(docID).update({
+      'task': newNote,
+      'updatedOn': Timestamp.now(),
+    });
+  }
+
   // Method to add data to Firestore
   Future<void> addNote(String note) async {
     final newNote = NotesDB(
@@ -45,6 +66,10 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
     );
 
     await _noteRef.add(newNote.toJson());
+  }
+
+  Future<void> deleteNote(String docID){
+    return _noteRef.doc(docID).delete();
   }
 }
 
