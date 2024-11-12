@@ -7,7 +7,7 @@ import '../States/fsNotesState.dart';
 const String NOTE_COLLECTION_REF = "notes";
 
 class FsNotesProvider extends StateNotifier<FsNotesState> {
-  //create an instance of firestore
+  //create an instance of fire store
   final _fireStore = FirebaseFirestore.instance;
   late final CollectionReference _noteRef;
 
@@ -17,36 +17,31 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
     _listenToRefChange();
   }
 
-  // initialize ref to follow a structure
+  // initialize fire store
   void _initNoteRef() {
-    _noteRef = _fireStore.collection(NOTE_COLLECTION_REF).withConverter<NotesDB>(
-          fromFirestore: (snapshots, _) => NotesDB.fromJson(snapshots.data()!),
-          toFirestore: (notesDB, _) => notesDB.toJson(),
-        );
+    /*_noteRef = _fireStore.collection(NOTE_COLLECTION_REF).withConverter<NotesDB>(
+      fromFirestore: (snapshots, _) => NotesDB.fromJson(snapshots.data()!),
+      toFirestore: (notesDB, _) => notesDB.toJson(),
+    );*/
+
+    _noteRef = _fireStore.collection(NOTE_COLLECTION_REF);
   }
 
-  // listener to watch Firestore changes
+  // // listener to watch Fire store changes
   void _listenToRefChange() {
-    _noteRef.snapshots().listen((QuerySnapshot<Object?> snapshot){
-      final NotesDB notes = snapshot.docs.map((doc) => doc.data()).toList();
+    _noteRef.snapshots().listen((QuerySnapshot<Object?> snapshot) {
+      final Map<String, NotesDB> newNotes = {
+        for (var doc in snapshot.docs)
+          doc.id: NotesDB.fromJson(doc.data() as Map<String, dynamic>)
+      };
 
-      // Update the state with the new list of notes
-      state = state.copyWith(notes: notes);
+      // Update the state with the new map of notes
+      state = state.copyWith(setNotes: newNotes);
+
+      print(newNotes);
     });
   }
 
-  void _listenToRefChange() {
-  _noteRef.snapshots().listen((QuerySnapshot<Object?> snapshot) {
-    // Map each document to an instance of NotesDB with document ID
-    final List<NotesDB> notes = snapshot.docs.map((doc) {
-      // Use the doc.id as the documentId and pass doc.data() as the JSON data
-      return NotesDB.fromJson(doc.data() as Map<String, dynamic>, doc.id);
-    }).toList();
-
-    // Update the state with the new list of notes
-    state = state.copyWith(notes: notes);
-  });
-}
 
   // Update data given with doc Id
   Future<void> updateNote(String docID, String newNote){
@@ -56,9 +51,9 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
     });
   }
 
-  // Method to add data to Firestore
+  // Method to add data to Fire store
   Future<void> addNote(String note) async {
-    final newNote = NotesDB(
+    final NotesDB newNote = NotesDB(
       task: note,
       isDone: false,
       createdOn: Timestamp.now(),

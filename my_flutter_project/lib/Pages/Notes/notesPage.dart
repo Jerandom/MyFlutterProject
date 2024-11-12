@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Class/Providers/fsNotesProvider.dart';
 import '../GenericWidget/textBoxWidget.dart';
+import 'noteTileWidget.dart';
 
 class MyNotesPage extends ConsumerStatefulWidget {
   const MyNotesPage({super.key});
@@ -21,31 +22,21 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 8,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          child: ListView.builder(
-            itemCount: fsNotes.length,
-            itemBuilder: (context, index) {
-              final note = fsNotes[index];
+        child: ListView.builder(
+          itemCount: 5,
+          itemBuilder: (context, index) {
+            return NoteTileWidget(
+              title: "asd",
+              createdOn: "November 7, 2024 at 3:18:40",
+              updatedOn: "November 7, 2024 at 3:18:40",
+              onEditPressed: () {
 
-              return NoteTileWidget(
-                title: ,
-                createdOn: ,
-                updatedOn: ,
-                
-              ),
-            },
-          ),
+              },
+              onDeletePressed: () {
+
+              },
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(

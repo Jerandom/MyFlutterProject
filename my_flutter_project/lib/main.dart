@@ -16,6 +16,7 @@ import 'Pages/Home/navMainPage.dart';
 import 'Pages/ImageList/imageListPage.dart';
 import 'Pages/Login/createAccountPage.dart';
 import 'Pages/Login/loginPage.dart';
+import 'Pages/Notes/notesPage.dart';
 import 'Pages/Settings/settingsPage.dart';
 
 void main() async {
@@ -89,7 +90,6 @@ class MyApp extends ConsumerWidget {
                   ),
                 ],
               ),
-
               // image list
               GoRoute(
                 path: 'imageList',
@@ -97,10 +97,19 @@ class MyApp extends ConsumerWidget {
               ),
             ],
           ),
+
+
+
           // advacend feature tab
           GoRoute(
             path: '/advancedFeature',
-            builder: (context, state) => AdvancedFeaturePage(),
+            builder: (context, state) => AdvancedFeaturePage(), 
+            routes: [
+              GoRoute(
+                path: 'notes',
+                builder: (context, state) => MyNotesPage(),
+              )
+            ],
           ),
         ],
       ),

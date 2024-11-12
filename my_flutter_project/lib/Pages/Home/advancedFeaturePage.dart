@@ -18,6 +18,7 @@ class _AdvancedFeaturePageState extends ConsumerState<AdvancedFeaturePage> {
 
     switch (route) {
       case "Advanced 1":
+        context.go('/advancedFeature/notes');
         print("switch to $route");
         break;
     }

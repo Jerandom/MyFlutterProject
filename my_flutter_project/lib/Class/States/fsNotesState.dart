@@ -1,20 +1,20 @@
 import '../Firebase/notesDB.dart';
 
 class FsNotesState {
-  final List<NotesDB> notes;
+  final Map<String, NotesDB> notes;
 
   FsNotesState({
-    required this.notes
+    required this.notes,
   });
 
   // A convenient method to create initial state
   factory FsNotesState.initial() => FsNotesState(
-    notes: []
+    notes: {},
   );
 
   // Method to create a copy of the state with some fields replaced
   FsNotesState copyWith({
-    List<NotesDB>? setNotes,
+    Map<String, NotesDB>? setNotes,
   }) => FsNotesState(
     notes: setNotes ?? notes
   );

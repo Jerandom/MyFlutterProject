@@ -18,58 +18,58 @@ class NoteTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      "Created on: $createdOn",
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      "Updated on: $updatedOn",
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ],
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+    child: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                const SizedBox(height: 4),
+                Text(
+                  "Created on: $createdOn",
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  "Updated on: $updatedOn",
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Checkbox(
+                value: false,
+                onChanged: (bool? value) {
+                  //ref.read(fsNotesProvider.notifier).toggleNoteCompletion(note.id, value ?? false);
+                },
               ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: note.isCompleted,
-                    onChanged: (bool? value) {
-                      ref.read(fsNotesProvider.notifier).toggleNoteCompletion(note.id, value ?? false);
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.edit),
-                    onPressed: onEditPressed,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: onDeletePressed,
-                  ),
-                ],
+              IconButton(
+                icon: const Icon(Icons.edit),
+                onPressed: onEditPressed,
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: onDeletePressed,
               ),
             ],
           ),
-        ),
-      );
+        ],
+      ),
+    ),
+  );
 }
