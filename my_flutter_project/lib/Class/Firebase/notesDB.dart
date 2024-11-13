@@ -13,14 +13,6 @@ class NotesDB{
     required this.updatedOn,
   });
 
-  // //constructor initialization
-  // NotesDB.fromJson(Map<String, Object?> json) : this(
-  //         task: json['task']! as String,
-  //         isDone: json['isDone']! as bool,
-  //         createdOn: json['createdOn']! as Timestamp,
-  //         updatedOn: json['updatedOn']! as Timestamp,
-  //     );
-
   // Factory method to create an instance of `NotesDB` from Firestore data
   factory NotesDB.fromJson(Map<String, dynamic> json) => NotesDB (
     task: json['task'] as String,

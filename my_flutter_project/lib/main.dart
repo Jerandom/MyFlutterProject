@@ -73,6 +73,9 @@ class MyApp extends ConsumerWidget {
           return MyHomePage(child: child);
         },
         routes: [
+
+          /* ====================== BASIC FEATURE ROUTE ====================== */
+
           // basic feature tab
           GoRoute(
             path: '/home',
@@ -90,6 +93,9 @@ class MyApp extends ConsumerWidget {
                   ),
                 ],
               ),
+
+              /* ====================== NESTED BASIC FEATURE ROUTE ====================== */
+
               // image list
               GoRoute(
                 path: 'imageList',
@@ -98,13 +104,16 @@ class MyApp extends ConsumerWidget {
             ],
           ),
 
-
+          /* ====================== ADVANCED FEATURE ROUTE ====================== */
 
           // advacend feature tab
           GoRoute(
             path: '/advancedFeature',
             builder: (context, state) => AdvancedFeaturePage(), 
             routes: [
+
+              /* ====================== NESTED ADVANCED FEATURE ROUTE ====================== */
+              
               GoRoute(
                 path: 'notes',
                 builder: (context, state) => MyNotesPage(),
@@ -114,7 +123,9 @@ class MyApp extends ConsumerWidget {
         ],
       ),
 
-      //login screen outside of shell route
+      /* ====================== OUTSIDE SHELL ROUTE ====================== */
+
+      //login screen
       GoRoute(
         path: '/login',
         builder: (context, state) => MyLoginPage(),
@@ -126,7 +137,7 @@ class MyApp extends ConsumerWidget {
         ],
       ),
 
-      //settings screen outside of shell route
+      //settings screen
       GoRoute(
         path: '/settings',
         builder: (context, state) => MySettingsPage(),

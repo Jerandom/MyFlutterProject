@@ -19,11 +19,6 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
 
   // initialize fire store
   void _initNoteRef() {
-    /*_noteRef = _fireStore.collection(NOTE_COLLECTION_REF).withConverter<NotesDB>(
-      fromFirestore: (snapshots, _) => NotesDB.fromJson(snapshots.data()!),
-      toFirestore: (notesDB, _) => notesDB.toJson(),
-    );*/
-
     _noteRef = _fireStore.collection(NOTE_COLLECTION_REF);
   }
 
@@ -42,15 +37,6 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
     });
   }
 
-
-  // Update data given with doc Id
-  Future<void> updateNote(String docID, String newNote){
-    return _noteRef.doc(docID).update({
-      'task': newNote,
-      'updatedOn': Timestamp.now(),
-    });
-  }
-
   // Method to add data to Fire store
   Future<void> addNote(String note) async {
     final NotesDB newNote = NotesDB(
@@ -61,6 +47,14 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
     );
 
     await _noteRef.add(newNote.toJson());
+  }
+
+  // Update data given with doc Id
+  Future<void> updateNote(String docID, String newNote){
+    return _noteRef.doc(docID).update({
+      'task': newNote,
+      'updatedOn': Timestamp.now(),
+    });
   }
 
   Future<void> deleteNote(String docID){

@@ -22,18 +22,37 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: 5,
+        child: fsNotes.notes.isEmpty ?
+        Center(
+          child: Text( "Notes is empty. Add a note!"),
+        ) :
+        ListView.builder(
+          itemCount: fsNotes.notes.length,
           itemBuilder: (context, index) {
+            // Getting the key-value pair at the current index
+            final noteId = fsNotes.notes.entries.elementAt(index).key;
+            final note = fsNotes.notes.entries.elementAt(index).value;
+
+            // create the tiles for list view
             return NoteTileWidget(
-              title: "asd",
-              createdOn: "November 7, 2024 at 3:18:40",
-              updatedOn: "November 7, 2024 at 3:18:40",
-              onEditPressed: () {
+              title: note.title,
+              createdOn: note.createdOn.toString(),
+              updatedOn: note.updatedOn.toString(),
+              isDone: note.isDone,
+
+              // when the task is done/undone
+              onCheckboxChanged: () {
 
               },
-              onDeletePressed: () {
 
+              // edit the notes
+              onEditPressed: () {
+                 ref.read(fsNotesProvider.notifier).updateNote(noteId);
+              },
+
+              // delete the notes
+              onDeletePressed: () {
+                ref.read(fsNotesProvider.notifier).deleteNote(noteId);
               },
             );
           },
