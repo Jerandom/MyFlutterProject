@@ -49,10 +49,7 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
         children: [
           Icon(Icons.person),
           const SizedBox(width: 4),
-          Text(
-            "Dummy Name",
-            style: const TextStyle(color: Colors.black, fontSize: 16),
-          ),
+          Text("Dummy Name"),
         ],
       );
 

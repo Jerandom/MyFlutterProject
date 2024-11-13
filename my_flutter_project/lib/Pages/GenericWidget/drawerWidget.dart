@@ -26,7 +26,7 @@ class DrawerWidget extends ConsumerWidget {
               DrawerHeader(
                 child: Center(
                   child: Icon(
-                    Icons.shopping_bag,
+                    Icons.person,
                     size: 72,
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),

@@ -22,7 +22,7 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
     _noteRef = _fireStore.collection(NOTE_COLLECTION_REF);
   }
 
-  // // listener to watch Fire store changes
+  // listener to watch Fire store changes
   void _listenToRefChange() {
     _noteRef.snapshots().listen((QuerySnapshot<Object?> snapshot) {
       final Map<String, NotesDB> newNotes = {

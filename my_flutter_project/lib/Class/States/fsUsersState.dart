@@ -1,7 +1,7 @@
 import '../Firebase/usersDB.dart';
 
 class FsUsersState {
-  final List<UsersDB> users;
+  final Map<String, UsersDB> users;
 
   FsUsersState({
     required this.users
@@ -9,12 +9,12 @@ class FsUsersState {
 
   // A convenient method to create initial state
   factory FsUsersState.initial() => FsUsersState(
-    users: []
+    users: {},
   );
 
   // Method to create a copy of the state with some fields replaced
   FsUsersState copyWith({
-    List<UsersDB>? setUsers,
+    Map<String, UsersDB>? setUsers,
   }) => FsUsersState(
     users: setUsers ?? users
   );

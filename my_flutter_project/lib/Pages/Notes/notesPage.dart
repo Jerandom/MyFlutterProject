@@ -21,43 +21,10 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: fsNotes.notes.isEmpty ?
-        Center(
-          child: Text( "Notes is empty. Add a note!"),
-        ) :
-        ListView.builder(
-          itemCount: fsNotes.notes.length,
-          itemBuilder: (context, index) {
-            // Getting the key-value pair at the current index
-            final noteId = fsNotes.notes.entries.elementAt(index).key;
-            final note = fsNotes.notes.entries.elementAt(index).value;
-
-            // create the tiles for list view
-            return NoteTileWidget(
-              title: note.title,
-              createdOn: note.createdOn.toString(),
-              updatedOn: note.updatedOn.toString(),
-              isDone: note.isDone,
-
-              // when the task is done/undone
-              onCheckboxChanged: () {
-
-              },
-
-              // edit the notes
-              onEditPressed: () {
-                 ref.read(fsNotesProvider.notifier).updateNote(noteId);
-              },
-
-              // delete the notes
-              onDeletePressed: () {
-                ref.read(fsNotesProvider.notifier).deleteNote(noteId);
-              },
-            );
-          },
-        ),
-      ),
+          padding: const EdgeInsets.all(16.0),
+          child: fsNotes.notes.isEmpty
+              ? _emptyWidget(context)
+              : _listWidget(context)),
       floatingActionButton: FloatingActionButton(
         onPressed: addNoteDialog,
         child: const Icon(Icons.add),
@@ -92,4 +59,38 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
       ),
     );
   }
+
+  Widget _emptyWidget(BuildContext context) => Center(
+        child: Text("Notes is empty. Add a note!"),
+      );
+
+  Widget _listWidget(BuildContext context) => ListView.builder(
+        itemCount: fsNotes.notes.length,
+        itemBuilder: (context, index) {
+          // Getting the key-value pair at the current index
+          final noteId = fsNotes.notes.entries.elementAt(index).key;
+          final note = fsNotes.notes.entries.elementAt(index).value;
+
+          // create the tiles for list view
+          return NoteTileWidget(
+            title: note.title,
+            createdOn: note.createdOn.toString(),
+            updatedOn: note.updatedOn.toString(),
+            isDone: note.isDone,
+
+            // when the task is done/undone
+            onCheckboxChanged: () {},
+
+            // edit the notes
+            onEditPressed: () {
+              ref.read(fsNotesProvider.notifier).updateNote(noteId);
+            },
+
+            // delete the notes
+            onDeletePressed: () {
+              ref.read(fsNotesProvider.notifier).deleteNote(noteId);
+            },
+          );
+        },
+      );
 }

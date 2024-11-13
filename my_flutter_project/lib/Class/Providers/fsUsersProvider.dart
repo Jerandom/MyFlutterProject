@@ -7,7 +7,7 @@ import '../States/fsUsersState.dart';
 const String USER_COLLECTION_REF = "users";
 
 class FsUsersProvider extends StateNotifier<FsUsersState> {
-  //create an instance of firestore
+  //create an instance of fire store
   final _fireStore = FirebaseFirestore.instance;
   late final CollectionReference _userRef;
 
@@ -19,22 +19,25 @@ class FsUsersProvider extends StateNotifier<FsUsersState> {
 
   // initialize ref to follow a structure
   void _initUserRef() {
-    _userRef = _fireStore.collection(USER_COLLECTION_REF).withConverter<UsersDB>(
-      fromFirestore: (snapshots, _) => UsersDB.fromJson(snapshots.data()!),
-      toFirestore: (usersDB, _) => usersDB.toJson(),
-    );
+    _userRef = _fireStore.collection(USER_COLLECTION_REF);
   }
 
-  // listener to watch Firestore changes
+  // listener to watch Fire store changes
   void _listenToRefChange() {
-    _userRef.snapshots().listen((QuerySnapshot<Object?> snapshot){
-      for (var doc in snapshot.docs) {
-        print("Document ID: ${doc.id}, Data: ${doc.data()}");
-      }
+    _userRef.snapshots().listen((QuerySnapshot<Object?> snapshot) {
+      final Map<String, UsersDB> newUsers = {
+        for (var doc in snapshot.docs)
+          doc.id: UsersDB.fromJson(doc.data() as Map<String, dynamic>)
+      };
+
+      // Update the state with the new map of users
+      state = state.copyWith(setUsers: newUsers);
+
+      print(newUsers);
     });
   }
 
-  // Method to add data to Firestore
+  // Method to add data to Fire store
   Future<void> addUser(UsersDB usersState) async {
     await _userRef.add(usersState);
   }
