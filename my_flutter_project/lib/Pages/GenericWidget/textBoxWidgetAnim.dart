@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-class AnimatedTextBox extends StatelessWidget {
+class TextBoxWidgetAnim extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final IconData icon;
+  final FormFieldValidator<String>? validator;
 
-  const AnimatedTextBox({
-    Key? key,
+  const TextBoxWidgetAnim({
+    super.key,
     required this.controller,
     required this.labelText,
     required this.icon,
-  }) : super(key: key);
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class AnimatedTextBox extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: TextFormField(
         controller: controller,
+        validator: validator,
         decoration: InputDecoration(
           labelText: labelText, // Sets the animated label text
           floatingLabelBehavior: FloatingLabelBehavior.auto, // Float when focused
