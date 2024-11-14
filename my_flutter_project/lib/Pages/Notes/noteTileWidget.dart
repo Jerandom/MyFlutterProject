@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class NoteTileWidget extends ConsumerWidget {
+class NoteTileWidget extends StatelessWidget {
   final String title;
   final String createdOn;
   final String updatedOn;
   final bool isDone;
-  final VoidCallback? onCheckboxChanged;
+  final ValueChanged<bool?>? onCheckboxChanged;
   final VoidCallback? onEditPressed;
   final VoidCallback? onDeletePressed;
 
@@ -15,7 +15,7 @@ class NoteTileWidget extends ConsumerWidget {
     required this.title,
     required this.createdOn,
     required this.updatedOn,
-    required this.isChecked,
+    required this.isDone,
     required this.onCheckboxChanged,
     required this.onEditPressed,
     required this.onDeletePressed,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_flutter_project/Class/States/fsNotesState.dart';
 
 import '../../Class/Providers/fsNotesProvider.dart';
 import '../GenericWidget/textBoxWidget.dart';
@@ -24,7 +25,7 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
           padding: const EdgeInsets.all(16.0),
           child: fsNotes.notes.isEmpty
               ? _emptyWidget(context)
-              : _listWidget(context)),
+              : _listWidget(context, fsNotes)),
       floatingActionButton: FloatingActionButton(
         onPressed: addNoteDialog,
         child: const Icon(Icons.add),
@@ -61,36 +62,38 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
   }
 
   Widget _emptyWidget(BuildContext context) => Center(
-        child: Text("Notes is empty. Add a note!"),
-      );
+    child: Text("Notes is empty. Add a note!"),
+  );
 
-  Widget _listWidget(BuildContext context) => ListView.builder(
-        itemCount: fsNotes.notes.length,
-        itemBuilder: (context, index) {
-          // Getting the key-value pair at the current index
-          final noteId = fsNotes.notes.entries.elementAt(index).key;
-          final note = fsNotes.notes.entries.elementAt(index).value;
+  Widget _listWidget(BuildContext context, FsNotesState fsNotes) => ListView.builder(
+    itemCount: fsNotes.notes.length,
+    itemBuilder: (context, index) {
+      // Getting the key-value pair at the current index
+      final noteId = fsNotes.notes.entries.elementAt(index).key;
+      final note = fsNotes.notes.entries.elementAt(index).value;
 
-          // create the tiles for list view
-          return NoteTileWidget(
-            title: note.title,
-            createdOn: note.createdOn.toString(),
-            updatedOn: note.updatedOn.toString(),
-            isDone: note.isDone,
+      // create the tiles for list view
+      return NoteTileWidget(
+        title: note.task,
+        createdOn: note.createdOn.toString(),
+        updatedOn: note.updatedOn.toString(),
+        isDone: note.isDone,
 
-            // when the task is done/undone
-            onCheckboxChanged: () {},
+        // when the task is done/undone
+        onCheckboxChanged: (value) {
 
-            // edit the notes
-            onEditPressed: () {
-              ref.read(fsNotesProvider.notifier).updateNote(noteId);
-            },
+        },
 
-            // delete the notes
-            onDeletePressed: () {
-              ref.read(fsNotesProvider.notifier).deleteNote(noteId);
-            },
-          );
+        // edit the notes
+        onEditPressed: () {
+          ref.read(fsNotesProvider.notifier).updateNote(noteId, "test");
+        },
+
+        // delete the notes
+        onDeletePressed: () {
+          ref.read(fsNotesProvider.notifier).deleteNote(noteId);
         },
       );
+    },
+  );
 }

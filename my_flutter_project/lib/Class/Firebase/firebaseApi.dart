@@ -19,5 +19,7 @@ class FirebaseApi {
     } catch (e) {
       print('An unknown error occurred: $e');
     }
+
+    return null;
   }
 }

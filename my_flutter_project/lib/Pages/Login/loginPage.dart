@@ -6,8 +6,8 @@ import '../../Class/Providers/appProvider.dart';
 
 import '../GenericWidget/buttonWidget.dart';
 import '../GenericWidget/clickableTextWidget.dart';
-import '../GenericWidget/flipPageWidget.dart';
 import '../GenericWidget/iconButtonWidget.dart';
+import '../GenericWidget/slidePageWidget.dart';
 import '../GenericWidget/textBoxWidget.dart';
 import 'createAccountPage.dart';
 
@@ -113,7 +113,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                           title: "Forgot Password?",
                           color: Colors.grey.shade600,
                           onTap: () {
-                            Navigator.push(context, FlipPageRoute(widget: MyCreateAccountPage()));
+                            // forget password
                           },
                         ),
                       ],
@@ -205,11 +205,12 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
 
                       SizedBox(width: 4),
 
-                      Text("Register now",
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      ClickableTextWidget(
+                        title: " Sign Up",
+                        color: Colors.blue,
+                        onTap: () {
+                          Navigator.push(context, SlidePageRoute(widget: MyCreateAccountPage()));
+                        },
                       ),
                     ],
                   ),
