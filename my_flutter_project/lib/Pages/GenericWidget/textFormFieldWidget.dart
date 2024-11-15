@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class TextBoxWidgetAnim extends StatelessWidget {
+class TextFormFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final IconData icon;
   final FormFieldValidator<String>? validator;
 
-  const TextBoxWidgetAnim({
+  const TextFormFieldWidget({
     super.key,
     required this.controller,
     required this.labelText,
@@ -22,11 +22,11 @@ class TextBoxWidgetAnim extends StatelessWidget {
         controller: controller,
         validator: validator,
         decoration: InputDecoration(
-          labelText: labelText, // Sets the animated label text
-          floatingLabelBehavior: FloatingLabelBehavior.auto, // Float when focused
+          labelText: labelText, 
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           prefixIcon: Icon(icon), // Adds leading icon
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0), // Makes the border rounded
+            borderRadius: BorderRadius.circular(30.0),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.0),

@@ -65,7 +65,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
 
                   //Title Message
                   Text(
-                    "Welcome to My Flutter Project",
+                    "Sign In",
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 16,

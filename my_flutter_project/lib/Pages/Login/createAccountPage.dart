@@ -5,7 +5,8 @@ class MyCreateAccountPage extends ConsumerStatefulWidget {
   const MyCreateAccountPage({super.key});
 
   @override
-  ConsumerState<MyCreateAccountPage> createState() => _MyCreateAccountPageState();
+  ConsumerState<MyCreateAccountPage> createState() =>
+      _MyCreateAccountPageState();
 }
 
 class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
@@ -38,60 +39,65 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create Account",
-            style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-        ),
+        title: Text("Create Account"),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: accountCreationBody(),
     );
   }
 
-  ElevatedButton clickableButton(String title, VoidCallback onPressed) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.purple,
-      ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-
   Widget accountCreationBody() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 50, right: 50),
+    return SafeArea(
+      child: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // Full Name TextFormField with validation
+            children: [
+              SizedBox(height: 50),
+
+              //logo
+              Image.asset(
+                'assets/images/ic_launcher.png',
+                width: 120,
+                height: 120,
+              ),
+
+              SizedBox(height: 50),
+
+              //Title Message
+              Text(
+                "Register Account",
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 16,
+                ),
+              ),
+
+              SizedBox(height: 25),
+
+              // Email TextFormField with validation
               TextFormField(
-                controller: _nameController,
+                controller: _emailController,
                 decoration: InputDecoration(
-                  labelText: "Full Name",
-                  hintText: "Jerald",
+                  labelText: "Email",
+                  hintText: "Example@gmail.com",
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
+                    return 'Please enter your email';
+                  } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
+                    return 'Please enter a valid email address';
                   }
                   return null;
                 },
               ),
+
               const SizedBox(height: 10),
-              
+
               // Password TextFormField with validation
               TextFormField(
                 controller: _passwordController,
@@ -110,56 +116,58 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 10),
-              
-              // Email TextFormField with validation
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  hintText: "Example@gmail.com",
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 10),
-              
-              // Phone Number TextFormField with validation
-              TextFormField(
-                controller: _phoneController,
-                decoration: InputDecoration(
-                  labelText: "Number",
-                  hintText: "+65",
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your phone number';
-                  }
-                  return null;
-                },
-              ),
+
               const SizedBox(height: 20),
-              
+
               // Create Account Button
-              FractionallySizedBox(
-                widthFactor: 0.4,
-                child: clickableButton("Create", () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    // If the form is valid, display a message or perform actions
-                    print('Name: ${_nameController.text}');
-                    print('Password: ${_passwordController.text}');
-                    print('Email: ${_emailController.text}');
-                    print('Phone: ${_phoneController.text}');
-                  }
-                }),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      // Handle account creation here
+                    }
+                  },
+                  child: const Text("Create Account"),
+                ),
+              ),
+
+              SizedBox(height: 50),
+
+              // Divider
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        thickness: 0.5,
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 50),
+
+              // already a member? Sign in
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already a member?",
+                    style: TextStyle(color: Colors.grey[700]),
+                  ),
+                  SizedBox(width: 4),
+                  ClickableTextWidget(
+                    title: " Sign in",
+                    color: Colors.blue,
+                    onTap: () {
+                      // return back to sign in
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -168,4 +176,3 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
     );
   }
 }
-
