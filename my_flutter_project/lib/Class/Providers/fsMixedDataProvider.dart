@@ -25,9 +25,9 @@ class FsMixedDataProvider extends StateNotifier<FsMixedDataState> {
   // listener to watch Fire store changes
   void _listenToRefChange() {
     _mixedDataRef.snapshots().listen((QuerySnapshot<Object?> snapshot) {
-      final Map<String, FsMixedDataState> newMixedData = {
+      final Map<String, MixedData> newMixedData = {
         for (var doc in snapshot.docs)
-          doc.id: FsMixedDataState.fromJson(doc.data() as Map<String, dynamic>)
+          doc.id: MixedData.fromJson(doc.data() as Map<String, dynamic>)
       };
 
       // Update the state with the new map of users

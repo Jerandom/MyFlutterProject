@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class UserAccount{
-    final Users name;
+    final User user;
 
     const UserAccount({
-        required this.name,
-        required this.age,
-        required this.hobbies,
+        required this.user,
     });
 }

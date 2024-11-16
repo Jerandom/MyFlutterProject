@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_flutter_project/main.dart';
+
+import '../GenericWidget/clickableTextWidget.dart';
+import '../GenericWidget/textFormFieldWidget.dart';
 
 class MyCreateAccountPage extends ConsumerStatefulWidget {
   const MyCreateAccountPage({super.key});
@@ -38,12 +42,6 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Create Account"),
-        centerTitle: true,
-        elevation: 0,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
       body: accountCreationBody(),
     );
   }
@@ -79,42 +77,70 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
               SizedBox(height: 25),
 
               // Email TextFormField with validation
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  hintText: "Example@gmail.com",
-                  border: OutlineInputBorder(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    hintText: "Example@gmail.com",
+                    prefixIcon: Icon(Icons.email),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: Colors.red, width: 2.0),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
               ),
 
               const SizedBox(height: 10),
 
               // Password TextFormField with validation
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  hintText: "Enter your password",
-                  border: OutlineInputBorder(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    hintText: "Enter your password",
+                    prefixIcon: Icon(Icons.password),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: Colors.red, width: 2.0),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a password';
+                    } else if (value.length < 6) {
+                      return 'Password must be at least 6 characters long';
+                    }
+                    return null;
+                  },
                 ),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a password';
-                  } else if (value.length < 6) {
-                    return 'Password must be at least 6 characters long';
-                  }
-                  return null;
-                },
               ),
 
               const SizedBox(height: 20),
@@ -126,6 +152,7 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
                       // Handle account creation here
+                      print("no errors");
                     }
                   },
                   child: const Text("Create Account"),
@@ -165,6 +192,7 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
                     color: Colors.blue,
                     onTap: () {
                       // return back to sign in
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],

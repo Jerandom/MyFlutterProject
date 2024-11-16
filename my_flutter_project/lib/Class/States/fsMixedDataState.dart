@@ -1,4 +1,4 @@
-
+import '../Firebase/mixedData.dart';
 
 class FsMixedDataState {
   final Map<String, MixedData> mixedData;
