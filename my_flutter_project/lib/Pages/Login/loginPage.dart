@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Class/Providers/appProvider.dart';
-
 import '../GenericWidget/buttonWidget.dart';
 import '../GenericWidget/clickableTextWidget.dart';
 import '../GenericWidget/iconButtonWidget.dart';
@@ -19,25 +18,43 @@ class MyLoginPage extends ConsumerStatefulWidget {
 }
 
 class _MyLoginPageState extends ConsumerState<MyLoginPage> {
-  late TextEditingController _usernameController;
+  late TextEditingController _emailController;
   late TextEditingController _passwordController;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _usernameController = TextEditingController();
+    _emailController = TextEditingController();
     _passwordController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
-  bool validateLogin(String username, String password){
-    return true;
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+        .hasMatch(value)) {
+      return 'Please enter a valid email address';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters';
+    }
+    return null;
   }
 
   @override
@@ -45,16 +62,17 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
     final appState = ref.watch(appProvider);
 
     return Scaffold(
-      //backgroundColor:
       body: SafeArea(
         child: Center(
-            child:SingleChildScrollView(
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 50),
 
-                  //logo
+                  // Logo
                   Image.asset(
                     'assets/images/ic_launcher.png',
                     width: 120,
@@ -63,7 +81,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
 
                   SizedBox(height: 50),
 
-                  //Title Message
+                  // Title Message
                   Text(
                     "Sign In",
                     style: TextStyle(
@@ -74,36 +92,63 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
 
                   SizedBox(height: 25),
 
-                  //username textfield
+                  // Email TextField
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextBoxWidget(
-                      headerText: "",
-                      hintText: "Email",
-                      controller: _usernameController,
-                      bTextDisplay: false,
-                      height: 60,
+                    child: TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: "Email",
+                        hintText: "Example@gmail.com",
+                        prefixIcon: Icon(Icons.email),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide:
+                              BorderSide(color: Colors.blue, width: 2.0),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide: BorderSide(color: Colors.red, width: 2.0),
+                        ),
+                        validator: validateEmail,
+                      ),
                     ),
                   ),
 
                   SizedBox(height: 10),
 
-                  //password textfield
+                  // Password TextField
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextBoxWidget(
-                      headerText: "",
-                      hintText: "Password",
-                      obscureText: true,
+                    child: TextFormField(
                       controller: _passwordController,
-                      bTextDisplay: false,
-                      height: 60,
+                      decoration: InputDecoration(
+                        labelText: "Password",
+                        hintText: "Enter your password",
+                        prefixIcon: Icon(Icons.password),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide:
+                              BorderSide(color: Colors.blue, width: 2.0),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide: BorderSide(color: Colors.red, width: 2.0),
+                        ),
+                        validator: validatePassword,
+                      ),
                     ),
                   ),
 
                   SizedBox(height: 10),
 
-                  //forgot password
+                  // Forgot Password
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.0),
                     child: Row(
@@ -113,7 +158,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                           title: "Forgot Password?",
                           color: Colors.grey.shade600,
                           onTap: () {
-                            // forget password
+                            // Handle forgot password logic
                           },
                         ),
                       ],
@@ -122,28 +167,26 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
 
                   SizedBox(height: 25),
 
-                  //sign in button
+                  // Sign In Button
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonWidget(
                       title: "Sign In",
-                      onTap: (() {
-                        if(!validateLogin(_usernameController.text, _passwordController.text)){
-                          return;
+                      onTap: () {
+                        if (_formKey.currentState?.validate() == true) {
+                          // Update the provider
+                          ref.read(appProvider.notifier).setLoginState(true);
+
+                          // Navigate to the home page
+                          context.go('/home');
                         }
-
-                        //update the provider
-                        ref.read(appProvider.notifier).setLoginState(true);
-
-                        //Navigator.pushNamed(context,  "/imageList");
-                        context.go('/home');
-                      }),
+                      },
                     ),
                   ),
 
                   SizedBox(height: 50),
 
-                  //or continue with
+                  // Or continue with
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
@@ -173,11 +216,11 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
 
                   SizedBox(height: 50),
 
-                  //google + apple sign in buttons
+                  // Google + Apple sign-in buttons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //google button
+                      // Google button
                       IconButtonWidget(
                         title: "Google",
                         imagePath: 'assets/images/google_icon.png',
@@ -185,7 +228,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
 
                       SizedBox(width: 25),
 
-                      //apple button
+                      // Apple button
                       IconButtonWidget(
                         title: "Apple",
                         imagePath: 'assets/images/google_icon.png',
@@ -195,28 +238,31 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
 
                   SizedBox(height: 50),
 
-                  // not a member? register now
+                  // Not a member? Register now
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Not a member?",
+                      Text(
+                        "Not a member?",
                         style: TextStyle(color: Colors.grey[700]),
                       ),
-
                       SizedBox(width: 4),
-
                       ClickableTextWidget(
                         title: " Sign Up",
                         color: Colors.blue,
                         onTap: () {
-                          Navigator.push(context, SlidePageRoute(widget: MyCreateAccountPage()));
+                          Navigator.push(
+                            context,
+                            SlidePageRoute(widget: MyCreateAccountPage()),
+                          );
                         },
                       ),
                     ],
                   ),
                 ],
               ),
-            )
+            ),
+          ),
         ),
       ),
     );
