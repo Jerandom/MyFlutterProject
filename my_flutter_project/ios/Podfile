@@ -1,0 +1,12 @@
+platform :ios, '11.0'
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
+  # Add the following dependencies for Firebase and Google Sign-In
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
+end
