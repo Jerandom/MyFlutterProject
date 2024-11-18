@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../Firebase/mixedData.dart';
+import '../Firebase/MixedDataDB.dart';
 import '../States/FsMixedDataState.dart';
 
 const String USER_COLLECTION_REF = "mixedData";
@@ -25,7 +25,7 @@ class FsMixedDataProvider extends StateNotifier<FsMixedDataState> {
   // listener to watch Fire store changes
   void _listenToRefChange() {
     _mixedDataRef.snapshots().listen((QuerySnapshot<Object?> snapshot) {
-      final Map<String, MixedData> newMixedData = {
+      final Map<String, MixedDataDB> newMixedData = {
         for (var doc in snapshot.docs)
           doc.id: MixedData.fromJson(doc.data() as Map<String, dynamic>)
       };

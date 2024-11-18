@@ -1,7 +1,7 @@
-import '../Firebase/mixedData.dart';
+import '../Firebase/MixedDataDB.dart';
 
 class FsMixedDataState {
-  final Map<String, MixedData> mixedData;
+  final Map<String, MixedDataDB> mixedData;
 
   FsMixedDataState({
     required this.mixedData
@@ -14,7 +14,7 @@ class FsMixedDataState {
 
   // Method to create a copy of the state with some fields replaced
   FsMixedDataState copyWith({
-    Map<String, MixedData>? setMixedData,
+    Map<String, MixedDataDB>? setMixedData,
   }) => FsMixedDataState(
     mixedData: setMixedData ?? mixedData
   );

@@ -1,18 +1,18 @@
-class MixedData{
+class MixedDataDB{
     final List<dynamic> arrType;
     final bool boolType;
     final int intType;
     final String stringType;
 
-    const MixedData({
+    const MixedDataDB({
         required this.arrType,
         required this.boolType,
         required this.intType,
         required this.stringType,
     });
 
-    // Factory method to create an instance of `MixedData` from Fire store data
-    factory MixedData.fromJson(Map<String, dynamic> json) => MixedData (
+    // Factory method to create an instance of `MixedDataDB` from Fire store data
+    factory MixedDataDB.fromJson(Map<String, dynamic> json) => MixedDataDB (
         arrType: List<dynamic>.from(json['arrType'] as List<dynamic>),
         boolType: json['boolType'] as bool,
         intType: json['intType'] as int,
@@ -32,6 +32,6 @@ class MixedData{
     // Override toString for easy printing
     @override
     String toString() {
-      return 'MixedData(arrType: $arrType, boolType: $boolType, intType: $intType, stringType: $stringType)';
+      return 'MixedDataDB(arrType: $arrType, boolType: $boolType, intType: $intType, stringType: $stringType)';
     }
 }

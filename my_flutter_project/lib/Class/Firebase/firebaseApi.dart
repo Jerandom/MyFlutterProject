@@ -5,7 +5,8 @@ class FirebaseApi {
   Future<User?> signInWithEmailPassword(String email, String password) async {
     try {
       // Trigger email and password sign-in
-      final UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final UserCredential userCredential = await FirebaseAuth.instance
+      .signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -26,6 +27,31 @@ class FirebaseApi {
     return null;
   }
 
+  Future<User?> createUserWithEmailAndPassword(String email, String password) async {
+    try {
+      // Create a new user
+      UserCredential userCredential = await FirebaseAuth.instance
+      .createUserWithEmailAndPassword(
+        email: email, 
+        password: password
+      );
+      return userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      // Firebase create account failed
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      } else {
+        print('Error: ${e.message}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+
+    return null;
+  }
+
   Future<User?> signInWithGoogle() async {
     try {
       // Trigger the Google Sign-In flow
@@ -37,7 +63,8 @@ class FirebaseApi {
       }
 
       // Obtain the Google Sign-In authentication details
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
       // Create a new credential using the authentication details
       final credential = GoogleAuthProvider.credential(
@@ -46,7 +73,8 @@ class FirebaseApi {
       );
 
       // Sign in with the credential in Firebase
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
 
       return userCredential.user;
     } catch (e) {
@@ -54,5 +82,10 @@ class FirebaseApi {
     }
 
     return null;
+  }
+
+  Future<void> signOut() async {
+    await GoogleSignIn().signOut();
+    await FirebaseAuth.instance.signOut();
   }
 }
