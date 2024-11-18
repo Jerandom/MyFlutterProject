@@ -17,8 +17,8 @@ class NotesDB{
   factory NotesDB.fromJson(Map<String, dynamic> json) => NotesDB (
     task: json['task'] as String,
     isDone: json['isDone'] as bool,
-    createdOn: json['createdOn'] as Timestamp,
-    updatedOn: json['updatedOn'] as Timestamp,
+    createdOn: (json['createdOn'] as Timestamp).toDate(),
+    updatedOn: (json['updatedOn'] as Timestamp).toDate(),
   );
 
   // Convert the data back to JSON for uploading to Firestore
@@ -26,8 +26,8 @@ class NotesDB{
     return {
       'task': task,
       'isDone': isDone,
-      'createdOn': createdOn,
-      'updatedOn': updatedOn,
+      'createdOn': Timestamp.fromDate(createdOn),
+      'updatedOn': Timestamp.fromDate(updatedOn),
     };
   }
 

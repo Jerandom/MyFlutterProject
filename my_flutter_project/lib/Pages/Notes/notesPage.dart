@@ -14,7 +14,8 @@ class MyNotesPage extends ConsumerStatefulWidget {
 }
 
 class _MyNotesPageState extends ConsumerState<MyNotesPage> {
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _addNoteController = TextEditingController();
+  final TextEditingController _editNoteController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,43 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
     );
   }
 
+  Widget _emptyWidget(BuildContext context) => Center(
+        child: Text("Notes is empty. Add a note!"),
+      );
+
+  Widget _listWidget(BuildContext context, FsNotesState fsNotes) =>
+      ListView.builder(
+        itemCount: fsNotes.notes.length,
+        itemBuilder: (context, index) {
+          // Getting the key-value pair at the current index
+          final noteId = fsNotes.notes.entries.elementAt(index).key;
+          final note = fsNotes.notes.entries.elementAt(index).value;
+
+          // create the tiles for list view
+          return NoteTileWidget(
+            title: note.task,
+            createdOn: note.createdOn.toString(),
+            updatedOn: note.updatedOn.toString(),
+            isDone: note.isDone,
+
+            // when the task is done/undone
+            onCheckboxChanged: (value) {
+              ref.read(fsNotesProvider.notifier).updateNoteStatus(noteId, value);
+            },
+
+            // edit the notes
+            onEditPressed: () {
+              editNoteDialog(noteId, note.task) 
+            },
+
+            // delete the notes
+            onDeletePressed: () {
+              ref.read(fsNotesProvider.notifier).deleteNote(noteId);
+            },
+          );
+        },
+      );
+
   void addNoteDialog() {
     showDialog(
       context: context,
@@ -40,60 +78,52 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
         content: TextBoxWidget(
           headerText: "Add Notes",
           hintText: "Example",
-          controller: _textController,
+          controller: _addNoteController,
         ),
         actions: [
           ElevatedButton(
             onPressed: () {
               // Add a new note
-              ref.read(fsNotesProvider.notifier).addNote(_textController.text);
+              ref.read(fsNotesProvider.notifier).addNote(_addNoteController.text);
 
               // Clear text controller
-              _textController.clear();
+              _addNoteController.clear();
 
               // Close the dialog
               Navigator.pop(context);
             },
-            child: const Text("Add"),
+            child: const Text("Confirm"),
           ),
         ],
       ),
     );
   }
 
-  Widget _emptyWidget(BuildContext context) => Center(
-    child: Text("Notes is empty. Add a note!"),
-  );
+  void editNoteDialog(String noteId, String currentNoteText) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: TextBoxWidget(
+          headerText: "Edit Notes",
+          hintText: "Example",
+          controller: _editNoteController,
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              // Update the note with the new text
+              ref.read(fsNotesProvider.notifier).editNote(noteId, _editNoteController.text);
 
-  Widget _listWidget(BuildContext context, FsNotesState fsNotes) => ListView.builder(
-    itemCount: fsNotes.notes.length,
-    itemBuilder: (context, index) {
-      // Getting the key-value pair at the current index
-      final noteId = fsNotes.notes.entries.elementAt(index).key;
-      final note = fsNotes.notes.entries.elementAt(index).value;
+              // Clear the text controller
+              _editNoteController.clear();
 
-      // create the tiles for list view
-      return NoteTileWidget(
-        title: note.task,
-        createdOn: note.createdOn.toString(),
-        updatedOn: note.updatedOn.toString(),
-        isDone: note.isDone,
-
-        // when the task is done/undone
-        onCheckboxChanged: (value) {
-
-        },
-
-        // edit the notes
-        onEditPressed: () {
-          ref.read(fsNotesProvider.notifier).updateNote(noteId, "test");
-        },
-
-        // delete the notes
-        onDeletePressed: () {
-          ref.read(fsNotesProvider.notifier).deleteNote(noteId);
-        },
-      );
-    },
-  );
+              // Close the dialog
+              Navigator.pop(context);
+            },
+            child: const Text("Confirm"),
+          ),
+        ],
+      ),
+    );
+  }
 }

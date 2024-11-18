@@ -49,10 +49,18 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
     await _noteRef.add(newNote.toJson());
   }
 
-  // Update data given with doc Id
-  Future<void> updateNote(String docID, String newNote){
+  // Edit data given with doc Id
+  Future<void> editNote(String docID, String newNote){
     return _noteRef.doc(docID).update({
       'task': newNote,
+      'updatedOn': Timestamp.now(),
+    });
+  }
+
+  // Update note status with given with doc Id
+  Future<void> updateNoteStatus(String docID, bool newStatus){
+    return _noteRef.doc(docID).update({
+      'isDone': newStatus,
       'updatedOn': Timestamp.now(),
     });
   }
