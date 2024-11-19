@@ -3,11 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Class/Providers/appProvider.dart';
+import '../../Class/Providers/fsUserAccountProvicer.dart';
 import '../GenericWidget/buttonWidget.dart';
 import '../GenericWidget/clickableTextWidget.dart';
 import '../GenericWidget/iconButtonWidget.dart';
 import '../GenericWidget/slidePageWidget.dart';
-import '../GenericWidget/textBoxWidget.dart';
 import 'createAccountPage.dart';
 
 class MyLoginPage extends ConsumerStatefulWidget {
@@ -60,6 +60,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
   @override
   Widget build(BuildContext context) {
     final appState = ref.watch(appProvider);
+    final fsUserAccState = ref.watch(fsUserAccountProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -113,8 +114,8 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                           borderRadius: BorderRadius.circular(16.0),
                           borderSide: BorderSide(color: Colors.red, width: 2.0),
                         ),
-                        validator: validateEmail,
                       ),
+                      validator: validateEmail,
                     ),
                   ),
 
@@ -141,8 +142,8 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                           borderRadius: BorderRadius.circular(16.0),
                           borderSide: BorderSide(color: Colors.red, width: 2.0),
                         ),
-                        validator: validatePassword,
                       ),
+                      validator: validatePassword,
                     ),
                   ),
 
@@ -226,7 +227,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                         imagePath: 'assets/images/google_icon.png',
                         onPressed: () {
                           // function for google sign in
-                          
+                          ref.read(fsUserAccountProvider.notifier).signInWithGoogle();
                         },
                       ),
 

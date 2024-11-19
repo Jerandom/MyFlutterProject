@@ -27,7 +27,7 @@ class FsMixedDataProvider extends StateNotifier<FsMixedDataState> {
     _mixedDataRef.snapshots().listen((QuerySnapshot<Object?> snapshot) {
       final Map<String, MixedDataDB> newMixedData = {
         for (var doc in snapshot.docs)
-          doc.id: MixedData.fromJson(doc.data() as Map<String, dynamic>)
+          doc.id: MixedDataDB.fromJson(doc.data() as Map<String, dynamic>)
       };
 
       // Update the state with the new map of users

@@ -42,8 +42,8 @@ class FsNotesProvider extends StateNotifier<FsNotesState> {
     final NotesDB newNote = NotesDB(
       task: note,
       isDone: false,
-      createdOn: Timestamp.now(),
-      updatedOn: Timestamp.now(),
+      createdOn: Timestamp.now().toDate(),
+      updatedOn: Timestamp.now().toDate(),
     );
 
     await _noteRef.add(newNote.toJson());

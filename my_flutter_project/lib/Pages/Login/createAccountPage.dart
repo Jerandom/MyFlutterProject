@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_flutter_project/main.dart';
 
 import '../GenericWidget/clickableTextWidget.dart';
-import '../GenericWidget/textFormFieldWidget.dart';
 
 class MyCreateAccountPage extends ConsumerStatefulWidget {
   const MyCreateAccountPage({super.key});
@@ -23,18 +22,16 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController();
     _passwordController = TextEditingController();
     _emailController = TextEditingController();
-    _phoneController = TextEditingController();
+    _cfmPasswordController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
     _passwordController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
+    _cfmPasswordController.dispose();
     super.dispose();
   }
 

@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:my_flutter_project/Pages/Shop/productTileWidget.dart';
+
+import '../../Class/Providers/shopProvider.dart';
 
 class MyShopPage extends ConsumerStatefulWidget {
   const MyShopPage({super.key});

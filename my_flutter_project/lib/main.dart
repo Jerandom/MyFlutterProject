@@ -18,6 +18,7 @@ import 'Pages/Login/createAccountPage.dart';
 import 'Pages/Login/loginPage.dart';
 import 'Pages/Notes/notesPage.dart';
 import 'Pages/Settings/settingsPage.dart';
+import 'Pages/Shop/shopPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -118,13 +119,13 @@ class MyApp extends ConsumerWidget {
               GoRoute(
                 path: 'notes',
                 builder: (context, state) => MyNotesPage(),
-              )
+              ),
 
               // shop
               GoRoute(
                 path: 'shop',
                 builder: (context, state) => MyShopPage(),
-              )
+              ),
             ],
           ),
         ],

@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class NotesDB{
   final String task;
   final bool isDone;
-  final Timestamp createdOn;
-  final Timestamp updatedOn;
+  final DateTime createdOn;
+  final DateTime updatedOn;
 
   const NotesDB({
     required this.task,

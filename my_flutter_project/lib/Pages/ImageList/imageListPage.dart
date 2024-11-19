@@ -41,13 +41,9 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text( "Image List",
-          style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-        ),
+        title: Text( "Image List"),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo){

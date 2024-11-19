@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 class MyShopInfoPage extends ConsumerStatefulWidget {
-  const MyShopPage({super.key});
+  const MyShopInfoPage({super.key});
 
   @override
   ConsumerState<MyShopInfoPage> createState() => _MyShopInfoPageState();
@@ -8,5 +11,6 @@ class MyShopInfoPage extends ConsumerStatefulWidget {
 class _MyShopInfoPageState extends ConsumerState<MyShopInfoPage> {
   @override
   Widget build(BuildContext context) {
+    return Center();
   }
 }

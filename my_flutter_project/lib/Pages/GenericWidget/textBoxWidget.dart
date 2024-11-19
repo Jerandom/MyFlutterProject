@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-enum KeyboardMode { 
-  text, 
+enum KeyboardMode {
+  text,
   number,
 }
 
@@ -25,6 +25,7 @@ class TextBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
+      height: 100,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

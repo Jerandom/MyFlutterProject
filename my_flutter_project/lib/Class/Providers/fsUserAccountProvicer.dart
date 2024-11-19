@@ -107,7 +107,6 @@ class FsUserAccountProvider extends StateNotifier<FsUserAccountState> {
   }
 }
 
-final fsUserAccountProvider =
-    StateNotifierProvider<FsUserAccountProvider, FsUserAccountState>((ref) {
+final fsUserAccountProvider = StateNotifierProvider<FsUserAccountProvider, FsUserAccountState>((ref) {
   return FsUserAccountProvider();
 });

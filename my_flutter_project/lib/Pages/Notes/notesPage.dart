@@ -22,6 +22,11 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
     final fsNotes = ref.watch(fsNotesProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text( "Notes"),
+        centerTitle: true,
+        elevation: 0,
+      ),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: fsNotes.notes.isEmpty
@@ -55,12 +60,12 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
 
             // when the task is done/undone
             onCheckboxChanged: (value) {
-              ref.read(fsNotesProvider.notifier).updateNoteStatus(noteId, value);
+              ref.read(fsNotesProvider.notifier).updateNoteStatus(noteId, value!);
             },
 
             // edit the notes
             onEditPressed: () {
-              editNoteDialog(noteId, note.task) 
+              editNoteDialog(noteId, note.task);
             },
 
             // delete the notes
@@ -76,8 +81,8 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
       context: context,
       builder: (context) => AlertDialog(
         content: TextBoxWidget(
-          headerText: "Add Notes",
-          hintText: "Example",
+          title: "Add Notes",
+          hint: "Example",
           controller: _addNoteController,
         ),
         actions: [
@@ -104,8 +109,8 @@ class _MyNotesPageState extends ConsumerState<MyNotesPage> {
       context: context,
       builder: (context) => AlertDialog(
         content: TextBoxWidget(
-          headerText: "Edit Notes",
-          hintText: "Example",
+          title: "Edit Notes",
+          hint: "Example",
           controller: _editNoteController,
         ),
         actions: [
