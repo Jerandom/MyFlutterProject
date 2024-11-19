@@ -17,8 +17,13 @@ class _AdvancedFeaturePageState extends ConsumerState<AdvancedFeaturePage> {
   void onItemTapped(String route, BuildContext context) {
 
     switch (route) {
-      case "Advanced 1":
+      case "Notes":
         context.go('/advancedFeature/notes');
+        print("switch to $route");
+        break;
+
+      case "Shop":
+        context.go('/advancedFeature/shop');
         print("switch to $route");
         break;
     }

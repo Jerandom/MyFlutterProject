@@ -17,12 +17,12 @@ class _BasicFeaturePageState extends ConsumerState<BasicFeaturePage> {
   void onItemTapped(String route, BuildContext context) {
 
     switch (route) {
-      case "Basic 1":
+      case "Test":
         context.go('/home/details');
         print("switch to $route");
         break;
 
-      case "Basic 2":
+      case "Image List":
         context.go('/home/imageList');
         print("switch to $route");
         break;

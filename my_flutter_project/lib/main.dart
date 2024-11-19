@@ -12,7 +12,7 @@ import 'Class/Theme/theme.dart';
 import 'Pages/Home/advancedFeaturePage.dart';
 import 'Pages/Home/basicFeaturePage.dart';
 import 'Pages/Home/homePage.dart';
-import 'Pages/Home/navMainPage.dart';
+import 'Pages/Home/testPage.dart';
 import 'Pages/ImageList/imageListPage.dart';
 import 'Pages/Login/createAccountPage.dart';
 import 'Pages/Login/loginPage.dart';
@@ -114,9 +114,16 @@ class MyApp extends ConsumerWidget {
 
               /* ====================== NESTED ADVANCED FEATURE ROUTE ====================== */
               
+              // notes
               GoRoute(
                 path: 'notes',
                 builder: (context, state) => MyNotesPage(),
+              )
+
+              // shop
+              GoRoute(
+                path: 'shop',
+                builder: (context, state) => MyShopPage(),
               )
             ],
           ),

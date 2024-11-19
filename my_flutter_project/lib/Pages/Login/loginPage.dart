@@ -224,6 +224,10 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                       IconButtonWidget(
                         title: "Google",
                         imagePath: 'assets/images/google_icon.png',
+                        onPressed: () {
+                          // function for google sign in
+                          
+                        },
                       ),
 
                       SizedBox(width: 25),
@@ -231,7 +235,11 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                       // Apple button
                       IconButtonWidget(
                         title: "Apple",
-                        imagePath: 'assets/images/google_icon.png',
+                        imagePath: 'assets/images/apple_icon.png',
+                        onPressed: () {
+                          // function for apple sign in
+
+                        },
                       ),
                     ],
                   ),

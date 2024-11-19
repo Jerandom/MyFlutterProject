@@ -1,5 +1,4 @@
-
-class HomeState{
+class HomeState {
   final int pageIndex;
   final List<Map<String, dynamic>> basicGridItems;
   final List<Map<String, dynamic>> advancedGridItems;
@@ -10,36 +9,27 @@ class HomeState{
     required this.advancedGridItems,
   });
 
-  // A convenient method to create initial state
   factory HomeState.initial() => HomeState(
-    pageIndex: 0,
-    basicGridItems: [
-      {'image': "assets/images/ic_launcher.png", 'text': "Basic 1"},
-      {'image': "assets/images/ic_launcher.png", 'text': "Basic 2"},
-      {'image': "assets/images/ic_launcher.png", 'text': "Basic 3"},
-      {'image': "assets/images/ic_launcher.png", 'text': "Basic 4"},
-      {'image': "assets/images/ic_launcher.png", 'text': "Basic 5"},
-      {'image': "assets/images/ic_launcher.png", 'text': "Basic 5"},
-    ],
-
-    advancedGridItems: [
-      {'image': "assets/images/ProfileIcon.png", 'text': "Advanced 1"},
-      {'image': "assets/images/ProfileIcon.png", 'text': "Advanced 2"},
-      {'image': "assets/images/ProfileIcon.png", 'text': "Advanced 3"},
-      {'image': "assets/images/ProfileIcon.png", 'text': "Advanced 4"},
-      {'image': "assets/images/ProfileIcon.png", 'text': "Advanced 5"},
-      {'image': "assets/images/ProfileIcon.png", 'text': "Advanced 6"},
-    ],
-  );
+      pageIndex: 0,
+      basicGridItems: [
+        {'image': "assets/images/ic_launcher.png", 'text': "Test"},
+        {'image': "assets/images/album_basic.png", 'text': "Image List"},
+      ],
+      advancedGridItems: [
+        {'image': "assets/images/notes_advanced.png", 'text': "Notes"},
+        {'image': "assets/images/shop_advanced.png", 'text': "Shop"},
+      ],
+    );
 
   // Method to create a copy of the state with some fields replaced
   HomeState copyWith({
     int? setPageIndex,
     List<Map<String, dynamic>>? setBasicGridItems,
     List<Map<String, dynamic>>? setAdvancedGridItems,
-  }) => HomeState(
-    pageIndex: setPageIndex ?? pageIndex,
-    basicGridItems: setBasicGridItems ?? basicGridItems,
-    advancedGridItems: setAdvancedGridItems ?? advancedGridItems,
-  );
+  }) =>
+      HomeState(
+        pageIndex: setPageIndex ?? pageIndex,
+        basicGridItems: setBasicGridItems ?? basicGridItems,
+        advancedGridItems: setAdvancedGridItems ?? advancedGridItems,
+      );
 }

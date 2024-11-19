@@ -1,7 +1,9 @@
 class ShopState {
   final List<Map<String, dynamic>> shopItems;
 
-  ShopState({required this.shopItems});
+  ShopState({
+    required this.shopItems,
+  });
 
   // A convenient method to create the initial state
   factory ShopState.initial() => ShopState(
