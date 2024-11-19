@@ -14,10 +14,9 @@ class MyCreateAccountPage extends ConsumerStatefulWidget {
 }
 
 class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
-  late TextEditingController _nameController;
-  late TextEditingController _passwordController;
   late TextEditingController _emailController;
-  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
+  late TextEditingController _cfmPasswordController;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 

@@ -259,10 +259,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                         title: " Sign Up",
                         color: Colors.blue,
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            SlidePageRoute(widget: MyCreateAccountPage()),
-                          );
+                          Navigator.push(context,SlidePageRoute(widget: MyCreateAccountPage()));
                         },
                       ),
                     ],

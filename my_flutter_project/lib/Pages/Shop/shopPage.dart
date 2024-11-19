@@ -11,14 +11,9 @@ class MyShopPage extends ConsumerStatefulWidget {
 class _MyShopPageState extends ConsumerState<MyShopPage> {
   @override
   Widget build(BuildContext context) {
-    final homeState = ref.watch(shopProvider);
+    final shopState = ref.watch(shopProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Shop Page"),
-      ),
       body: ListView(
         children: [
           Center(
@@ -33,13 +28,15 @@ class _MyShopPageState extends ConsumerState<MyShopPage> {
           SizedBox(
             height: 500,
             child: ListView.builder(
-              itemCount: products.length,
+              itemCount: shopState.shopItems.length,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.all(15),
               itemBuilder: (context, index) {
-
-                return ProductTileWidget(product: product);
-              },
+                // Pass each shopItem to ProductTileWidget
+                return ProductTileWidget(
+                  shopItem: shopState.shopItems[index],
+                );
+              }
             ),
           )
         ],
