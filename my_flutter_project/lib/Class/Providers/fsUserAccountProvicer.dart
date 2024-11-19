@@ -95,11 +95,15 @@ class FsUserAccountProvider extends StateNotifier<FsUserAccountState> {
   }
 
   void setErrorMsg(String errorMsg) {
-    state = state.copyWith(setErrorMsg: errorMsg);
+    state = state.copyWith(
+      setErrorMsg: errorMsg
+    );
   }
 
   void clearErrorMsg() {
-    state = state.copyWith(setErrorMsg: "");
+    state = state.copyWith(
+      setErrorMsg: ""
+    );
   }
 }
 

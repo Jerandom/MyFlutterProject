@@ -13,12 +13,12 @@ class FsMixedDataProvider extends StateNotifier<FsMixedDataState> {
 
   FsMixedDataProvider() : super(FsMixedDataState.initial()) {
     // constructor
-    _initUserRef();
+    _initMixedDataRef();
     _listenToRefChange();
   }
 
   // initialize ref to follow a structure
-  void _initUserRef() {
+  void _initMixedDataRef() {
     _mixedDataRef = _fireStore.collection(USER_COLLECTION_REF);
   }
 
