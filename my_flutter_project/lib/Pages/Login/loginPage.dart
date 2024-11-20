@@ -28,6 +28,21 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+
+    // Set up a persistent listener for the provider state
+    ref.listen<FsUserAccountState>(fsUserAccountProvider, (previous, next) {
+      if (next.user != null) {
+        // Update login state in appProvider
+        ref.read(appProvider.notifier).setLoginState(true);
+
+        // Navigate to the home page if sign-in is successful
+        context.go('/home');
+
+      } else if (next.errorMsg.isNotEmpty) {
+        // Show error if there was an issue
+        SnackBarWidget(title: next.errorMsg).show(context);
+      }
+    });
   }
 
   @override
@@ -175,11 +190,11 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                       title: "Sign In",
                       onTap: () {
                         if (_formKey.currentState?.validate() == true) {
-                          // Update the provider
-                          ref.read(appProvider.notifier).setLoginState(true);
-
-                          // Navigate to the home page
-                          context.go('/home');
+                          // function for sign in with email and password
+                          ref.read(fsUserAccountProvider.notifier).signInWithEmailPassword(
+                            _emailController.text, 
+                            _passwordController.text,
+                          );
                         }
                       },
                     ),

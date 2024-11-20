@@ -44,14 +44,19 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   //UI components
-  Widget _onlineWidget(WidgetRef ref, BuildContext context) => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.person),
-          const SizedBox(width: 4),
-          Text("Dummy Name"),
-        ],
-      );
+  Widget _onlineWidget(WidgetRef ref, BuildContext context) {
+    final fsUserAccState = ref.watch(fsUserAccountProvider);
+    final _userName = fsUserAccState.user?.email  ?? 'Guest';
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.person),
+        const SizedBox(width: 4),
+        Text(_userName),
+      ],
+    );
+  }
 
   Widget _offlineWidget(BuildContext context) => InkWell(
         onTap: () {

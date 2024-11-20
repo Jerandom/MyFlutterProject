@@ -31,8 +31,7 @@ class FsUserAccountProvider extends StateNotifier<FsUserAccountState> {
     }
   }
 
-  Future<void> createUserWithEmailAndPassword(
-      String email, String password) async {
+  Future<void> createUserWithEmailAndPassword(String email, String password) async {
     try {
       final UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
@@ -98,6 +97,11 @@ class FsUserAccountProvider extends StateNotifier<FsUserAccountState> {
     state = state.copyWith(
       setErrorMsg: errorMsg
     );
+
+    // Clear the error message after a delay
+    Future.delayed(Duration(seconds: 3), () {
+      clearErrorMsg();
+    });
   }
 
   void clearErrorMsg() {
