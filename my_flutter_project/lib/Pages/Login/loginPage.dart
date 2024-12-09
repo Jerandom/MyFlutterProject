@@ -4,53 +4,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Class/Providers/appProvider.dart';
 import '../../Class/Providers/fsUserAccountProvicer.dart';
+import '../../Class/States/fsUserAccountState.dart';
 import '../GenericWidget/buttonWidget.dart';
 import '../GenericWidget/clickableTextWidget.dart';
 import '../GenericWidget/iconButtonWidget.dart';
 import '../GenericWidget/slidePageWidget.dart';
+import '../GenericWidget/snackBarWidget.dart';
 import 'createAccountPage.dart';
 
-class MyLoginPage extends ConsumerStatefulWidget {
+class MyLoginPage extends ConsumerWidget {
   const MyLoginPage({super.key});
-
-  @override
-  ConsumerState<MyLoginPage> createState() => _MyLoginPageState();
-}
-
-class _MyLoginPageState extends ConsumerState<MyLoginPage> {
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-
-    // Set up a persistent listener for the provider state
-    ref.listen<FsUserAccountState>(fsUserAccountProvider, (previous, next) {
-      if (next.user != null) {
-        // Update login state in appProvider
-        ref.read(appProvider.notifier).setLoginState(true);
-
-        // Navigate to the home page if sign-in is successful
-        context.go('/home');
-
-      } else if (next.errorMsg.isNotEmpty) {
-        // Show error if there was an issue
-        SnackBarWidget(title: next.errorMsg).show(context);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -72,17 +35,41 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
     return null;
   }
 
+  void setupFsUserAccountListener(BuildContext context, WidgetRef ref) {
+    // Set up a persistent listener for the provider state
+    ref.listen<FsUserAccountState>(fsUserAccountProvider, (previous, next) {
+      if (next.user != null) {
+        // Update login state in appProvider
+        ref.read(appProvider.notifier).setLoginState(true);
+
+        // Navigate to the home page if sign-in is successful
+        context.go('/home');
+
+      } else if (next.errorMsg.isNotEmpty) {
+        // Show error if there was an issue
+        SnackBarWidget(title: next.errorMsg).show(context);
+      }
+    });
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final appState = ref.watch(appProvider);
     final fsUserAccState = ref.watch(fsUserAccountProvider);
+
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+    // Set up a persistent listener for the provider state
+    setupFsUserAccountListener(context, ref);
 
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -112,7 +99,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextFormField(
-                      controller: _emailController,
+                      controller: emailController,
                       decoration: InputDecoration(
                         labelText: "Email",
                         hintText: "Example@gmail.com",
@@ -123,7 +110,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
                           borderSide:
-                              BorderSide(color: Colors.blue, width: 2.0),
+                          BorderSide(color: Colors.blue, width: 2.0),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
@@ -140,7 +127,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextFormField(
-                      controller: _passwordController,
+                      controller: passwordController,
                       decoration: InputDecoration(
                         labelText: "Password",
                         hintText: "Enter your password",
@@ -151,7 +138,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
                           borderSide:
-                              BorderSide(color: Colors.blue, width: 2.0),
+                          BorderSide(color: Colors.blue, width: 2.0),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
@@ -189,11 +176,11 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                     child: ButtonWidget(
                       title: "Sign In",
                       onTap: () {
-                        if (_formKey.currentState?.validate() == true) {
+                        if (formKey.currentState?.validate() == true) {
                           // function for sign in with email and password
                           ref.read(fsUserAccountProvider.notifier).signInWithEmailPassword(
-                            _emailController.text, 
-                            _passwordController.text,
+                            emailController.text,
+                            passwordController.text,
                           );
                         }
                       },
@@ -254,7 +241,6 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                         imagePath: 'assets/images/apple_icon.png',
                         onPressed: () {
                           // function for apple sign in
-
                         },
                       ),
                     ],
@@ -275,7 +261,7 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
                         title: " Sign Up",
                         color: Colors.blue,
                         onTap: () {
-                          Navigator.push(context,SlidePageRoute(widget: MyCreateAccountPage()));
+                          Navigator.push(context, SlidePageRoute(widget: MyCreateAccountPage()));
                         },
                       ),
                     ],
@@ -289,3 +275,4 @@ class _MyLoginPageState extends ConsumerState<MyLoginPage> {
     );
   }
 }
+

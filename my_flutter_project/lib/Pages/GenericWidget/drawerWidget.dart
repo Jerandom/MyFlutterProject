@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_flutter_project/Class/Providers/fsUserAccountProvicer.dart';
 
 import '../../Class/Providers/appProvider.dart';
 import 'drawerTileWidget.dart';
@@ -76,7 +77,7 @@ class DrawerWidget extends ConsumerWidget {
         icon: Icons.logout,
         onTap: () {
           // sign out from auth
-          ref.read(fsUserAccState.notifier).signOut();
+          ref.read(fsUserAccountProvider.notifier).signOut();
 
           // Update the app provider
           ref.read(appProvider.notifier).setLoginState(false);

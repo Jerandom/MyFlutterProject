@@ -1,39 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_flutter_project/main.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../Class/Providers/appProvider.dart';
+import '../../Class/Providers/fsUserAccountProvicer.dart';
+import '../../Class/States/fsUserAccountState.dart';
+import '../GenericWidget/buttonWidget.dart';
 import '../GenericWidget/clickableTextWidget.dart';
+import '../GenericWidget/snackBarWidget.dart';
 
-class MyCreateAccountPage extends ConsumerStatefulWidget {
+class MyCreateAccountPage extends ConsumerWidget {
   const MyCreateAccountPage({super.key});
 
-  @override
-  ConsumerState<MyCreateAccountPage> createState() =>
-      _MyCreateAccountPageState();
-}
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+        .hasMatch(value)) {
+      return 'Please enter a valid email address';
+    }
+    return null;
+  }
 
-class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-  late TextEditingController _cfmPasswordController;
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters';
+    }
+    return null;
+  }
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String? validateConfirmPassword(String? value, String password) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a password';
+    } else if (value != password) {
+      return 'Password does not match';
+    }
+    return null;
+  }
 
-  @override
-  void initState() {
-    super.initState();
-    _passwordController = TextEditingController();
-    _emailController = TextEditingController();
-    _cfmPasswordController = TextEditingController();
-
+  void setupFsUserAccountListener(BuildContext context, WidgetRef ref) {
     // Set up a persistent listener for the provider state
     ref.listen<FsUserAccountState>(fsUserAccountProvider, (previous, next) {
-      if (next.user != null) {
-        // Update login state in appProvider
-        ref.read(appProvider.notifier).setLoginState(true);
-
-        // Navigate to the home page if sign-in is successful
-        context.go('/home');
+      if (next.errorMsg.isEmpty) {
+        // Success return back to sign in
+        Navigator.of(context).pop();
+        SnackBarWidget(title: "Account Creation Successful").show(context);
 
       } else if (next.errorMsg.isNotEmpty) {
         // Show error if there was an issue
@@ -43,20 +57,22 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
   }
 
   @override
-  void dispose() {
-    _passwordController.dispose();
-    _emailController.dispose();
-    _cfmPasswordController.dispose();
-    super.dispose();
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final fsUserAccountState = ref.watch(fsUserAccountProvider);
 
-  @override
-  Widget build(BuildContext context) {
+    late TextEditingController emailController = TextEditingController();
+    late TextEditingController passwordController = TextEditingController();
+    late TextEditingController cfmPasswordController = TextEditingController();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+    // Set up a persistent listener for the provider state
+    setupFsUserAccountListener(context, ref);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -84,9 +100,9 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
 
                 // Email TextFormField with validation
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TextFormField(
-                    controller: _emailController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       labelText: "Email",
                       hintText: "Example@gmail.com",
@@ -103,14 +119,7 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
                         borderSide: BorderSide(color: Colors.red, width: 2.0),
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
-                        return 'Please enter a valid email address';
-                      }
-                      return null;
-                    },
+                    validator: validateEmail,
                   ),
                 ),
 
@@ -118,9 +127,9 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
 
                 // Password TextFormField with validation
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TextFormField(
-                    controller: _passwordController,
+                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: "Password",
@@ -138,14 +147,7 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
                         borderSide: BorderSide(color: Colors.red, width: 2.0),
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a password';
-                      } else if (value.length < 6) {
-                        return 'Password must be at least 6 characters long';
-                      }
-                      return null;
-                    },
+                    validator: validatePassword,
                   ),
                 ),
 
@@ -153,9 +155,9 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
 
                 // Confirm Password TextFormField with validation
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TextFormField(
-                    controller: _cfmPasswordController,
+                    controller: cfmPasswordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: "Confirm Password",
@@ -173,37 +175,31 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
                         borderSide: BorderSide(color: Colors.red, width: 2.0),
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a password';
-                      } else if (value != _passwordController.text) {
-                        return 'Password does not match';
-                      }
-                      return null;
-                    },
+                    validator: (String? value) =>
+                        validateConfirmPassword(value!, passwordController.text),
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
 
                 // Create Account Button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ElevatedButton(
-                    child: const Text("Create Account"),
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
+                  child: ButtonWidget(
+                    title: "Create Account",
+                    onTap: () {
+                      if (formKey.currentState?.validate() ?? false) {
                         // Handle account creation here
                         ref.read(fsUserAccountProvider.notifier).createUserWithEmailAndPassword(
-                          _emailController.text, 
-                          _passwordController.text,
+                          emailController.text,
+                          passwordController.text,
                         );
                       }
                     },
                   ),
                 ),
 
-                SizedBox(height: 50),
+                SizedBox(height: 30),
 
                 // Divider
                 Padding(
@@ -220,7 +216,7 @@ class _MyCreateAccountPageState extends ConsumerState<MyCreateAccountPage> {
                   ),
                 ),
 
-                SizedBox(height: 50),
+                SizedBox(height: 30),
 
                 // already a member? Sign in
                 Row(

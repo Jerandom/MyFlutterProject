@@ -18,6 +18,7 @@ class FsUserAccountProvider extends StateNotifier<FsUserAccountState> {
 
       // Update the state with the signed-in user
       state = state.copyWith(setUser: userCredential.user);
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         setErrorMsg('No user found for that email.');

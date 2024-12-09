@@ -52,7 +52,7 @@ class _MyImageListPageState extends ConsumerState<MyImageListPage> {
             isLoading = true;
             ref.read(imageProvider.notifier).setPageIndex(imageState.pageIndex + 1);
             ref.read(imageProvider.notifier).
-            loadAndDecodeImages(imageState.pageIndex, imageState.pageLimit).then((_) {
+            loadAndDecodeImages(imageState.pageIndex, imageState.pageLimit).then((void _) {
               isLoading = false;
             });
             return true;
