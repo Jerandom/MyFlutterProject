@@ -75,12 +75,12 @@ class MyApp extends ConsumerWidget {
         },
         routes: [
 
-          /* ====================== BASIC FEATURE ROUTE ====================== */
+          /* ====================== OFFLINE FEATURE ROUTE ====================== */
 
-          // basic feature tab
+          // offline feature tab
           GoRoute(
             path: '/home',
-            builder: (context, state) => BasicFeaturePage(),
+            builder: (context, state) => OfflineFeaturePage(),
             routes: [
               // test details
               GoRoute(
@@ -95,25 +95,21 @@ class MyApp extends ConsumerWidget {
                 ],
               ),
 
-              /* ====================== NESTED BASIC FEATURE ROUTE ====================== */
+              /* ====================== NESTED OFFLINE FEATURE ROUTE ====================== */
 
-              // image list
-              GoRoute(
-                path: 'imageList',
-                builder: (context, state) => MyImageListPage(),
-              ),
+              
             ],
           ),
 
-          /* ====================== ADVANCED FEATURE ROUTE ====================== */
+          /* ====================== ONLINE FEATURE ROUTE ====================== */
 
-          // advacend feature tab
+          // online feature tab
           GoRoute(
-            path: '/advancedFeature',
-            builder: (context, state) => AdvancedFeaturePage(), 
+            path: '/onlineFeature',
+            builder: (context, state) => OnlineFeaturePage(), 
             routes: [
 
-              /* ====================== NESTED ADVANCED FEATURE ROUTE ====================== */
+              /* ====================== NESTED ONLINE FEATURE ROUTE ====================== */
               
               // notes
               GoRoute(
@@ -121,10 +117,22 @@ class MyApp extends ConsumerWidget {
                 builder: (context, state) => MyNotesPage(),
               ),
 
+              // image list
+              GoRoute(
+                path: 'imageList',
+                builder: (context, state) => MyImageListPage(),
+              ),
+
               // shop
               GoRoute(
                 path: 'shop',
                 builder: (context, state) => MyShopPage(),
+                routes: [
+                  GoRoute(
+                    path: "shopInfo"
+                    builder: (context, state) => MyShopInfoPage(),
+                  ),
+                ],
               ),
             ],
           ),

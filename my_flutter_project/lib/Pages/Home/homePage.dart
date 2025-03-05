@@ -37,7 +37,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
               context.go('/home');
               break;
             case 1:
-              context.go('/advancedFeature');
+              context.go('/onlineFeature');
               break;
           }
         },

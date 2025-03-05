@@ -5,25 +5,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Class/Providers/homeProvider.dart';
 import 'gridViewWidget.dart';
 
-class BasicFeaturePage extends ConsumerStatefulWidget {
-  const BasicFeaturePage({super.key});
+class OnlineFeaturePage extends ConsumerStatefulWidget {
+  const OnlineFeaturePage({super.key});
 
   @override
-  ConsumerState<BasicFeaturePage> createState() => _BasicFeaturePageState();
+  ConsumerState<OnlineFeaturePage> createState() => _OnlineFeaturePageState();
 }
 
-class _BasicFeaturePageState extends ConsumerState<BasicFeaturePage> {
+class _OnlineFeaturePageState extends ConsumerState<OnlineFeaturePage> {
 
   void onItemTapped(String route, BuildContext context) {
 
     switch (route) {
-      case "Test":
-        context.go('/home/details');
+      case "Notes":
+        context.go('/onlineFeature/notes');
+        print("switch to $route");
+        break;
+      
+      case "Image List":
+        context.go('/onlineFeature/imageList');
         print("switch to $route");
         break;
 
-      case "Image List":
-        context.go('/home/imageList');
+      case "Shop":
+        context.go('/onlineFeature/shop');
         print("switch to $route");
         break;
     }
@@ -42,7 +47,7 @@ class _BasicFeaturePageState extends ConsumerState<BasicFeaturePage> {
                   // title
                   children: [
                     const Text(
-                      "Basic Features",
+                      "Online Features",
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
 
@@ -60,9 +65,9 @@ class _BasicFeaturePageState extends ConsumerState<BasicFeaturePage> {
               ),
               Expanded(
                 child: GridViewWidget(
-                  gridItems: homeState.basicGridItems,
+                  gridItems: homeState.advancedGridItems,
                   onTap: (index) {
-                    onItemTapped(homeState.basicGridItems[index]['text'], context);
+                    onItemTapped(homeState.advancedGridItems[index]['text'], context);
                   },
                 ),
               ),

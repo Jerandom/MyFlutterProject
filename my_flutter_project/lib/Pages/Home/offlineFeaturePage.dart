@@ -5,25 +5,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Class/Providers/homeProvider.dart';
 import 'gridViewWidget.dart';
 
-class AdvancedFeaturePage extends ConsumerStatefulWidget {
-  const AdvancedFeaturePage({super.key});
+class OfflineFeaturePage extends ConsumerStatefulWidget {
+  const OfflineFeaturePage({super.key});
 
   @override
-  ConsumerState<AdvancedFeaturePage> createState() => _AdvancedFeaturePageState();
+  ConsumerState<OfflineFeaturePage> createState() => _OfflineFeaturePageState();
 }
 
-class _AdvancedFeaturePageState extends ConsumerState<AdvancedFeaturePage> {
+class _OfflineFeaturePageState extends ConsumerState<OfflineFeaturePage> {
 
   void onItemTapped(String route, BuildContext context) {
 
     switch (route) {
-      case "Notes":
-        context.go('/advancedFeature/notes');
-        print("switch to $route");
-        break;
-
-      case "Shop":
-        context.go('/advancedFeature/shop');
+      case "Test":
+        context.go('/home/details');
         print("switch to $route");
         break;
     }
@@ -42,7 +37,7 @@ class _AdvancedFeaturePageState extends ConsumerState<AdvancedFeaturePage> {
                   // title
                   children: [
                     const Text(
-                      "Advanced Features",
+                      "Offline Features",
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
 
@@ -60,9 +55,9 @@ class _AdvancedFeaturePageState extends ConsumerState<AdvancedFeaturePage> {
               ),
               Expanded(
                 child: GridViewWidget(
-                  gridItems: homeState.advancedGridItems,
+                  gridItems: homeState.basicGridItems,
                   onTap: (index) {
-                    onItemTapped(homeState.advancedGridItems[index]['text'], context);
+                    onItemTapped(homeState.basicGridItems[index]['text'], context);
                   },
                 ),
               ),
