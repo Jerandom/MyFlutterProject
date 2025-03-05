@@ -65,9 +65,9 @@ class _OnlineFeaturePageState extends ConsumerState<OnlineFeaturePage> {
               ),
               Expanded(
                 child: GridViewWidget(
-                  gridItems: homeState.advancedGridItems,
+                  gridItems: homeState.onlineGridItems,
                   onTap: (index) {
-                    onItemTapped(homeState.advancedGridItems[index]['text'], context);
+                    onItemTapped(homeState.onlineGridItems[index]['text'], context);
                   },
                 ),
               ),

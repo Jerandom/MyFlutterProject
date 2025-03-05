@@ -55,9 +55,9 @@ class _OfflineFeaturePageState extends ConsumerState<OfflineFeaturePage> {
               ),
               Expanded(
                 child: GridViewWidget(
-                  gridItems: homeState.basicGridItems,
+                  gridItems: homeState.offlineGridItems,
                   onTap: (index) {
-                    onItemTapped(homeState.basicGridItems[index]['text'], context);
+                    onItemTapped(homeState.offlineGridItems[index]['text'], context);
                   },
                 ),
               ),
