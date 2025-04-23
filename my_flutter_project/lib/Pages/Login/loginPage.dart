@@ -88,7 +88,7 @@ class MyLoginPage extends ConsumerWidget {
                   Text(
                     "Sign In",
                     style: TextStyle(
-                      color: Colors.grey[700],
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 16,
                     ),
                   ),
@@ -103,18 +103,18 @@ class MyLoginPage extends ConsumerWidget {
                       decoration: InputDecoration(
                         labelText: "Email",
                         hintText: "Example@gmail.com",
-                        prefixIcon: Icon(Icons.email),
+                        prefixIcon: Icon(Icons.email, color: Theme.of(context).colorScheme.primary),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
                           borderSide:
-                          BorderSide(color: Colors.blue, width: 2.0),
+                          BorderSide(color: Theme.of(context).colorScheme.primary, width: 2.0),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
-                          borderSide: BorderSide(color: Colors.red, width: 2.0),
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.error, width: 2.0),
                         ),
                       ),
                       validator: validateEmail,
@@ -131,18 +131,18 @@ class MyLoginPage extends ConsumerWidget {
                       decoration: InputDecoration(
                         labelText: "Password",
                         hintText: "Enter your password",
-                        prefixIcon: Icon(Icons.password),
+                        prefixIcon: Icon(Icons.password, color: Theme.of(context).colorScheme.primary),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
                           borderSide:
-                          BorderSide(color: Colors.blue, width: 2.0),
+                          BorderSide(color: Theme.of(context).colorScheme.primary, width: 2.0),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
-                          borderSide: BorderSide(color: Colors.red, width: 2.0),
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.error, width: 2.0),
                         ),
                       ),
                       validator: validatePassword,
@@ -159,7 +159,7 @@ class MyLoginPage extends ConsumerWidget {
                       children: [
                         ClickableTextWidget(
                           title: "Forgot Password?",
-                          color: Colors.grey.shade600,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           onTap: () {
                             // Handle forgot password logic
                           },
@@ -197,20 +197,20 @@ class MyLoginPage extends ConsumerWidget {
                         Expanded(
                           child: Divider(
                             thickness: 0.5,
-                            color: Colors.grey[400],
+                            color: Theme.of(context).colorScheme.outlineVariant,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             "Or continue with",
-                            style: TextStyle(color: Colors.grey[700]),
+                            style: TextStyle(color: Theme.of(context).colorScheme.outline),
                           ),
                         ),
                         Expanded(
                           child: Divider(
                             thickness: 0.5,
-                            color: Colors.grey[400],
+                            color: Theme.of(context).colorScheme.outlineVariant,
                           ),
                         ),
                       ],
@@ -254,12 +254,12 @@ class MyLoginPage extends ConsumerWidget {
                     children: [
                       Text(
                         "Not a member?",
-                        style: TextStyle(color: Colors.grey[700]),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                       ),
                       SizedBox(width: 4),
                       ClickableTextWidget(
                         title: " Sign Up",
-                        color: Colors.blue,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         onTap: () {
                           Navigator.push(context, SlidePageRoute(widget: MyCreateAccountPage()));
                         },
