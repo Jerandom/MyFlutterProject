@@ -18,13 +18,13 @@ class ButtonWidget extends StatelessWidget {
     child: Container(
       height: height,
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(
         child: Text(title,
           style: TextStyle(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
             fontSize: 16,
           )
