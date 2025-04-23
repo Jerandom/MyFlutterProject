@@ -40,6 +40,10 @@ class ProductTileWidget extends StatelessWidget {
                       width: 100, 
                       height: 100,
                       fit: BoxFit.cover,
+                      //error handling for invalid image
+                      errorBuilder: (context, error, stackTrace){
+                        return Icon(Icons.broken_image, size: 50);
+                      }
                     ),
                   ),
                 ),

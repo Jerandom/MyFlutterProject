@@ -17,18 +17,22 @@ class _MyShopPageState extends ConsumerState<MyShopPage> {
     final shopState = ref.watch(shopProvider);
 
     return Scaffold(
-      body: ListView(
-        children: [
-          Center(
-            child: Text(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Text(
               "Pick from a selected list of products",
               style: TextStyle(
                   color: Theme.of(context).colorScheme.inversePrimary),
             ),
           ),
 
+          SizedBox(height: 20),
+
           //product list
           SizedBox(
+            // change this to dynamic height?
             height: 500,
             child: ListView.builder(
               itemCount: shopState.shopItems.length,
@@ -38,11 +42,12 @@ class _MyShopPageState extends ConsumerState<MyShopPage> {
                 // Pass each shopItem to ProductTileWidget
                 return ProductTileWidget(
                   shopItem: shopState.shopItems[index],
-                );
-              }
-            ),
-          )
-        ],
+                  );
+                }
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
