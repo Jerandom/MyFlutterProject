@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../Class/Providers/themeProvider.dart';
+import '../../Class/Theme/themeProvider.dart';
 
 class MySettingsPage extends ConsumerStatefulWidget {
 	const MySettingsPage({super.key});

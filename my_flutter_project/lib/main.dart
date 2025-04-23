@@ -4,20 +4,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_flutter_project/Class/States/themeState.dart';
 
 import 'Class/Providers/appProvider.dart';
-import 'Class/Providers/themeProvider.dart';
 import 'Class/Theme/theme.dart';
-import 'Pages/Home/advancedFeaturePage.dart';
-import 'Pages/Home/basicFeaturePage.dart';
+import 'Class/Theme/themeProvider.dart';
+
 import 'Pages/Home/homePage.dart';
+import 'Pages/Home/offlineFeaturePage.dart';
+import 'Pages/Home/onlineFeaturePage.dart';
 import 'Pages/Home/testPage.dart';
 import 'Pages/ImageList/imageListPage.dart';
 import 'Pages/Login/createAccountPage.dart';
 import 'Pages/Login/loginPage.dart';
 import 'Pages/Notes/notesPage.dart';
 import 'Pages/Settings/settingsPage.dart';
+import 'Pages/Shop/shopInfoPage.dart';
 import 'Pages/Shop/shopPage.dart';
 
 void main() async {
@@ -129,7 +130,7 @@ class MyApp extends ConsumerWidget {
                 builder: (context, state) => MyShopPage(),
                 routes: [
                   GoRoute(
-                    path: "shopInfo"
+                    path: "shopInfo",
                     builder: (context, state) => MyShopInfoPage(),
                   ),
                 ],

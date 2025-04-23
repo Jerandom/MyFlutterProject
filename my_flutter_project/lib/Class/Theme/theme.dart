@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '/Class/Theme/themeText.dart';
+
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
   //Custom Theme
