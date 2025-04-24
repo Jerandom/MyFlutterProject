@@ -25,12 +25,12 @@ class MyOnboardingPage extends ConsumerWidget {
                                     ),
 
                                     // Title
-                                    Text("TITLE", style: Theme.of(context)., textAlign: TextAlign.center),
+                                    Text("TITLE", style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
 
                                     const SizedBox(height: 20),
 
                                     // Subtitle
-                                    Text("SUBTITLE", style: Theme.of(context)., textAlign: TextAlign.center),
+                                    Text("SUBTITLE", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
                                 ],
                             ),
                         ),
@@ -38,10 +38,33 @@ class MyOnboardingPage extends ConsumerWidget {
                 ),
 
                 // Skip button
+                Positioned(
+                    top: 20, 
+                    right: 20, 
+                    child: TextButton(onPressed: (){}, child: const Text("Skip"))
+                ),
 
                 // Dot navigation SmoothPageIndicator
+                Positioned(
+                    bottom: 20,
+                    left: 20,
+                    child: SmoothPageIndicator(
+                        controller: PageController(), 
+                        count: 3
+                        effect: ExpandingDotsEffect(activeDotColor: Theme.of(context)., dotHeight: 6)
+                    ),
+                ),
 
                 // Circular Button
+                Positioned(
+                    right: 20,
+                    bottom: 20,
+                    style: ElevatedButton.styleFrom(shape: const CircleBorder(), backgroundColor: Theme.of(context).)
+                    child: ElevatedButton(
+                        onPressed: (){},
+                        child: Icon(ICON HERE)
+                    ),
+                ),
             ],
         ),
     );
