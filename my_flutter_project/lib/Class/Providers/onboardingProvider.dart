@@ -1,15 +1,20 @@
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-//
-// // Define a state notifier for managing the app state
-// class OnBoardingProvider extends StateNotifier<ImageState> {
-//   OnBoardingProvider() : super(ImageState.initial()) {
-//     //constructor
-//   }
-//
-//
-// }
-//
-// // Define a provider for Image Provider
-// final onboardingProvider = StateNotifierProvider<OnBoardingProvider, ImageState>((ref) {
-//   return OnBoardingProvider();
-// });
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Define a state notifier for managing the app state
+class OnBoardingProvider extends StateNotifier<OnBoardingState> {
+  OnBoardingProvider() : super(OnBoardingState.initial()) {
+    //constructor
+  }
+
+  // method to set the page index
+  void setPageIndex(int index){
+    state = state.copyWith(
+      setPageIndex: index,
+    );
+  }
+}
+
+// Define a provider for OnBoarding Provider
+final onboardingProvider = StateNotifierProvider<OnBoardingProvider, OnBoardingState>((ref) {
+  return OnBoardingProvider();
+});
