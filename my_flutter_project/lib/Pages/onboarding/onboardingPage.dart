@@ -14,7 +14,26 @@ class MyOnboardingPage extends ConsumerWidget {
                 // Horizontal scrollable pages
                 PageView(
                     children: [
+                        Padding(
+                            padding: const EdgeInserts.all(12),
+                            child: Column(
+                                children: [
+                                    Image(
+                                        width: 20,
+                                        height: 20,
+                                        image: AssetImage("IMAGE STRING"),
+                                    ),
 
+                                    // Title
+                                    Text("TITLE", style: Theme.of(context)., textAlign: TextAlign.center),
+
+                                    const SizedBox(height: 20),
+
+                                    // Subtitle
+                                    Text("SUBTITLE", style: Theme.of(context)., textAlign: TextAlign.center),
+                                ],
+                            ),
+                        ),
                     ],
                 ),
 
