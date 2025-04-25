@@ -12,12 +12,24 @@ class HomeState {
   factory HomeState.initial() => HomeState(
       pageIndex: 0,
       offlineGridItems: [
-        {'image': "assets/images/ic_launcher.png", 'text': "Test"},
+        {
+          'image': "assets/images/ic_launcher.png", 
+          'text': "Test"
+        },
       ],
       onlineGridItems: [
-        {'image': "assets/images/notes_advanced.png", 'text': "Notes"},
-        {'image': "assets/images/album_basic.png", 'text': "Image List"},
-        {'image': "assets/images/shop_advanced.png", 'text': "Shop"},
+        {
+          'image': "assets/images/notes_advanced.png", 
+          'text': "Notes"
+        },
+        {
+          'image': "assets/images/album_basic.png", 
+          'text': "Image List"
+        },
+        {
+          'image': "assets/images/shop_advanced.png", 
+          'text': "Shop"
+        },
       ],
     );
 

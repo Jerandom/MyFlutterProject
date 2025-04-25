@@ -20,9 +20,21 @@ class OnBoardingState {
   factory OnBoardingState.initial() => OnBoardingState(
       pageIndex: 0,
       onboardingItems: [
-        {'image': "", 'title': "This is a title", 'subtitle': "This is a subtitle"},
-        {'image': "", 'title': "This is a title", 'subtitle': "This is a subtitle"},
-        {'image': "", 'title': "This is a title", 'subtitle': "This is a subtitle"},
+      {
+        "image": "assets/gifs/",
+        "title": "Welcome",
+        "subtitle": "Let's get started!"
+      },
+      {
+        "image": "assets/gifs/",
+        "title": "Discover",
+        "subtitle": "Find what you need easily."
+      },
+      {
+        "image": "assets/gifs/",
+        "title": "Enjoy",
+        "subtitle": "Have a great experience."
+      },
       ],
     );
 

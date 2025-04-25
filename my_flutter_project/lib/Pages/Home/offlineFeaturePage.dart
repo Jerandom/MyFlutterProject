@@ -46,7 +46,7 @@ class _OfflineFeaturePageState extends ConsumerState<OfflineFeaturePage> {
                     //divider
                     Expanded(
                       child: Divider(
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.outlineVariant,
                         thickness: 1,
                       ),
                     ),

@@ -29,7 +29,7 @@ class GridViewWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Container(
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSurface,
                   child: Image.asset(
                     gridItems[index]['image'] as String,
                     width: 100.0,

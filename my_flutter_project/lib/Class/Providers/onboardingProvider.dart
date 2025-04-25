@@ -6,6 +6,21 @@ class OnBoardingProvider extends StateNotifier<OnBoardingState> {
     //constructor
   }
 
+  // jump to the specific dot selected page
+  void dotNavigationClick(int index) {
+    
+  } 
+
+  // update current index & jump to next page
+  void nextPage() {
+
+  }
+
+  // update current index & jump to last page
+  void skipPage() {
+
+  }
+
   // method to set the page index
   void setPageIndex(int index){
     state = state.copyWith(
