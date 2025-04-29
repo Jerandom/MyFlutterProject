@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class CategoriesTileWidget extends ConsumerWidget {
+  const CategoriesTileWidget({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+        Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Column(
+                children: [
+                    
+                ],
+            )
+        ),
+    ),
+  }
+}

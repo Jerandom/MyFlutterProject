@@ -15,7 +15,7 @@ class SearchBarWidget extends ConsumerWidget {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     color: Theme.of(context)
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(30),
                     border: Border.all(color: Theme.of(context))
                 ),
                 child: Row(
